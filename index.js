@@ -27,15 +27,6 @@ const createCucumber = (spec, definitions) =>
 
 const createPattern = () => {
   const appRoot = process.cwd();
-  const cypressOptions = JSON.parse(
-    fs.readFileSync(`${appRoot}/cypress.json`, "utf-8")
-  );
-
-  if (cypressOptions && cypressOptions.fileServerFolder) {
-    return `${
-      cypressOptions.fileServerFolder
-    }/support/step_definitions/**/*.js`;
-  }
   return `${appRoot}/cypress/support/step_definitions/**/*.js`;
 };
 
