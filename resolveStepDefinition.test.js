@@ -2,11 +2,12 @@
 const fs = require("fs");
 const { Parser } = require("gherkin");
 const { createTestsFromFeature } = require("./createTestsFromFeature");
-const { when, then, given } = require("./resolveStepDefinition");
+const { when, then, given, and } = require("./resolveStepDefinition");
 
 window.when = when;
 window.then = then;
 window.given = given;
+window.and = and;
 
 const readAndParseFeatureFile = featureFilePath => {
   const spec = fs.readFileSync(featureFilePath);

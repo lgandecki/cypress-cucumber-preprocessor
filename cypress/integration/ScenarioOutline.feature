@@ -14,7 +14,7 @@ Feature: Being a plugin handling Scenario Outline
 
   Scenario Outline: Use juicer with <fruit>
     Given I put "<fruit>" in a juicer
-    When I switch it on
+    And I switch it on
     Then I should get "<juice>"
 
     Examples:
