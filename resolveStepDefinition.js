@@ -12,7 +12,7 @@ class StepDefinitionRegistry {
     this.runtime = {};
     this.latestType = "";
 
-    ["given", "when", "then"].forEach(keyword => {
+    ["given", "when", "then", "and"].forEach(keyword => {
       this.definitions[keyword] = [];
       this.runtime[keyword] = (expression, implementation) => {
         this.definitions[keyword].push({
@@ -26,14 +26,9 @@ class StepDefinitionRegistry {
       definitionFactoryFunction(this.runtime);
 
     this.resolve = (type, text) => {
-      let actualType = type;
-      if (type === "and") {
-        actualType = this.latestType;
-      }
-
-      if (this.definitions[actualType]) {
-        this.latestType = actualType;
-        return this.definitions[actualType].filter(({ expression }) =>
+      if (this.definitions[type]) {
+        this.latestType = type;
+        return this.definitions[type].filter(({ expression }) =>
           expression.match(text)
         )[0];
       }
@@ -80,5 +75,8 @@ module.exports = {
   },
   then: (expression, implementation) => {
     stepDefinitionRegistry.runtime.then(expression, implementation);
+  },
+  and: (expression, implementation) => {
+    stepDefinitionRegistry.runtime.and(expression, implementation);
   }
 };
