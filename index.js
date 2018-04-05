@@ -44,7 +44,7 @@ const stepDefinitionPath = () => {
 
   return `${appRoot}/cypress/support/step_definitions`;
 };
-const createPattern = () => `${stepDefinitionPath()}/**/*.js`;
+const createPattern = () => `${stepDefinitionPath()}/**/*.+(js|ts)`;
 
 const pattern = createPattern();
 
