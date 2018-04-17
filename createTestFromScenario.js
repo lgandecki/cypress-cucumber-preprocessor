@@ -4,30 +4,30 @@
 require("mocha-steps");
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
 
-const stepTest = stepDetails =>
-  step(`${stepDetails.keyword} ${stepDetails.text}`, () => {
-    resolveAndRunStepDefinition(stepDetails);
-  });
+const stepTest = stepDetails => {
+  cy.log(`${stepDetails.keyword} ${stepDetails.text}`)
+  resolveAndRunStepDefinition(stepDetails);
+}
 
 const createTestFromScenario = scenario => {
-  describe(scenario.name, () => {
-    if (scenario.examples) {
-      scenario.examples.forEach(example => {
-        const exampleValues = [];
+  if (scenario.examples) {
+    scenario.examples.forEach(example => {
+      const exampleValues = [];
 
-        example.tableBody.forEach((row, rowIndex) => {
-          example.tableHeader.cells.forEach((header, headerIndex) => {
-            exampleValues[rowIndex] = Object.assign(
-              {},
-              exampleValues[rowIndex],
-              {
-                [header.value]: row.cells[headerIndex].value
-              }
-            );
-          });
+      example.tableBody.forEach((row, rowIndex) => {
+        example.tableHeader.cells.forEach((header, headerIndex) => {
+          exampleValues[rowIndex] = Object.assign(
+            {},
+            exampleValues[rowIndex],
+            {
+              [header.value]: row.cells[headerIndex].value
+            }
+          );
         });
+      });
 
-        exampleValues.forEach((_, index) => {
+      exampleValues.forEach((_, index) => {
+        it(scenario.name, () => {
           scenario.steps.forEach(step => {
             const newStep = Object.assign({}, step);
             Object.entries(exampleValues[index]).forEach(column => {
@@ -40,13 +40,17 @@ const createTestFromScenario = scenario => {
             });
 
             stepTest(newStep);
-          });
+          })
+
         });
       });
-    } else {
+    })
+  }
+  else {
+    it(scenario.name, () => {
       scenario.steps.forEach(step => stepTest(step));
-    }
-  });
+    })
+  }
 };
 
 module.exports = {
