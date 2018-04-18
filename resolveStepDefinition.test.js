@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+/* global jest */
 const fs = require("fs");
 const { Parser } = require("gherkin");
 const { createTestsFromFeature } = require("./createTestsFromFeature");
@@ -7,6 +8,9 @@ const { when, then, given } = require("./resolveStepDefinition");
 window.when = when;
 window.then = then;
 window.given = given;
+window.cy = {
+  log: jest.fn()
+};
 
 const readAndParseFeatureFile = featureFilePath => {
   const spec = fs.readFileSync(featureFilePath);
