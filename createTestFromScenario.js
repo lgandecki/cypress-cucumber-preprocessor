@@ -8,7 +8,7 @@ const stepTest = stepDetails => {
   resolveAndRunStepDefinition(stepDetails);
 };
 
-const createTestFromScenario = scenario => {
+const createTestFromScenario = (scenario, backgroundSection) => {
   if (scenario.examples) {
     scenario.examples.forEach(example => {
       const exampleValues = [];
@@ -23,6 +23,10 @@ const createTestFromScenario = scenario => {
 
       exampleValues.forEach((_, index) => {
         it(scenario.name, () => {
+          if (backgroundSection) {
+            backgroundSection.steps.forEach(stepTest);
+          }
+
           scenario.steps.forEach(step => {
             const newStep = Object.assign({}, step);
             Object.entries(exampleValues[index]).forEach(column => {
@@ -41,6 +45,9 @@ const createTestFromScenario = scenario => {
     });
   } else {
     it(scenario.name, () => {
+      if (backgroundSection) {
+        backgroundSection.steps.forEach(stepTest);
+      }
       scenario.steps.forEach(step => stepTest(step));
     });
   }
