@@ -22,7 +22,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       });
 
       exampleValues.forEach((_, index) => {
-        it(scenario.name, () => {
+        it(`${scenario.name} (example #${index + 1})`, () => {
           if (backgroundSection) {
             backgroundSection.steps.forEach(stepTest);
           }
