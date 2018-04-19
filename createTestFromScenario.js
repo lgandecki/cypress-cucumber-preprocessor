@@ -1,6 +1,4 @@
 /* eslint-disable prefer-template */
-
-require("mocha-steps");
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
 
 const stepTest = stepDetails => {
