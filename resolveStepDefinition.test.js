@@ -57,3 +57,10 @@ describe("Background section", () => {
     readAndParseFeatureFile("./cypress/integration/BackgroundSection.feature")
   );
 });
+
+describe("Regexp", () => {
+  require("./cypress/support/step_definitions/regexp");
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/RegularExpressions.feature")
+  );
+});

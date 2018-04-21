@@ -1,6 +1,7 @@
 const DataTable = require("cucumber/lib/models/data_table").default;
 const {
   CucumberExpression,
+  RegularExpression,
   ParameterTypeRegistry
 } = require("cucumber-expressions");
 
@@ -10,18 +11,17 @@ class StepDefinitionRegistry {
   constructor() {
     this.definitions = {};
     this.runtime = {};
-    this.latestType = "";
 
     this.definitions = [];
-    this.runtime = (expression, implementation) => {
-      this.definitions.push({
-        implementation,
-        expression: new CucumberExpression(expression, parameterTypeRegistry)
-      });
+    this.runtime = (matcher, implementation) => {
+      let expression;
+      if (matcher instanceof RegExp) {
+        expression = new RegularExpression(matcher, parameterTypeRegistry);
+      } else {
+        expression = new CucumberExpression(matcher, parameterTypeRegistry);
+      }
+      this.definitions.push({ implementation, expression });
     };
-
-    this.load = definitionFactoryFunction =>
-      definitionFactoryFunction(this.runtime);
 
     this.resolve = (type, text) =>
       this.definitions.filter(({ expression }) => expression.match(text))[0];
