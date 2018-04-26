@@ -64,3 +64,11 @@ describe("Regexp", () => {
     readAndParseFeatureFile("./cypress/integration/RegularExpressions.feature")
   );
 });
+
+describe("Tags", () => {
+  require("./cypress/support/step_definitions/tags");
+
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/Tags.feature")
+  );
+});

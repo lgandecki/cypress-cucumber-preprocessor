@@ -6,9 +6,11 @@ const stepTest = stepDetails => {
   resolveAndRunStepDefinition(stepDetails);
 };
 
-const createTestFromScenario = (scenario, backgroundSection) => {
+const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
+  const scenarioTags = scenario.tags;
   if (scenario.examples) {
     scenario.examples.forEach(example => {
+      const exampleTags = example.tags;
       const exampleValues = [];
 
       example.tableBody.forEach((row, rowIndex) => {
@@ -18,36 +20,46 @@ const createTestFromScenario = (scenario, backgroundSection) => {
           });
         });
       });
+      const totalTags = featureTags.concat(scenarioTags).concat(exampleTags);
+      if (totalTags.filter(tag => tag.name === "@ignore").length > 0) {
+        // ignore scenario due to ignore tag
+      } else {
+        exampleValues.forEach((_, index) => {
+          it(`${scenario.name} (example #${index + 1})`, () => {
+            if (backgroundSection) {
+              backgroundSection.steps.forEach(stepTest);
+            }
 
-      exampleValues.forEach((_, index) => {
-        it(`${scenario.name} (example #${index + 1})`, () => {
-          if (backgroundSection) {
-            backgroundSection.steps.forEach(stepTest);
-          }
+            scenario.steps.forEach(step => {
+              const newStep = Object.assign({}, step);
+              Object.entries(exampleValues[index]).forEach(column => {
+                if (newStep.text.includes("<" + column[0] + ">")) {
+                  newStep.text = newStep.text.replace(
+                    "<" + column[0] + ">",
+                    column[1]
+                  );
+                }
+              });
 
-          scenario.steps.forEach(step => {
-            const newStep = Object.assign({}, step);
-            Object.entries(exampleValues[index]).forEach(column => {
-              if (newStep.text.includes("<" + column[0] + ">")) {
-                newStep.text = newStep.text.replace(
-                  "<" + column[0] + ">",
-                  column[1]
-                );
-              }
+              stepTest(newStep);
             });
-
-            stepTest(newStep);
           });
         });
-      });
+      }
     });
   } else {
-    it(scenario.name, () => {
-      if (backgroundSection) {
-        backgroundSection.steps.forEach(stepTest);
-      }
-      scenario.steps.forEach(step => stepTest(step));
-    });
+    const totalTags = featureTags.concat(scenarioTags);
+
+    if (totalTags.filter(tag => tag.name === "@ignore").length > 0) {
+      // ignore scenario due to ignore tag
+    } else {
+      it(scenario.name, () => {
+        if (backgroundSection) {
+          backgroundSection.steps.forEach(stepTest);
+        }
+        scenario.steps.forEach(step => stepTest(step));
+      });
+    }
   }
 };
 
