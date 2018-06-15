@@ -7,8 +7,10 @@ const browserify = require("@cypress/browserify-preprocessor");
 const log = require("debug")("cypress:cucumber");
 const glob = require("glob");
 const cosmiconfig = require("cosmiconfig");
+const { getTags } = require("./getTags");
 
 const watchers = {};
+console.log(getTags());
 
 // This is the template for the file that we will send back to cypress instead of the text of a
 // feature file

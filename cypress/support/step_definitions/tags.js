@@ -1,11 +1,18 @@
 /* global given, then */
 
-let tagscounter = 0;
+const { getTags } = require("../../../getTags");
 
-given("tags counter is incremented", () => {
-  tagscounter += 1;
+let parsedTags;
+
+given(/I pass '(.+)'/, cliArg => {
+  parsedTags = JSON.stringify(getTags(cliArg));
 });
 
-then("tags counter equals {int}", value => {
-  expect(tagscounter).to.equal(value);
+then(/scenarios tagged '(.+)' should run/, tag => {
+  expect(parsedTags).to.deep.equal(
+    JSON.stringify({
+      ignore: [],
+      only: [tag]
+    })
+  );
 });
