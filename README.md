@@ -87,7 +87,7 @@ Run your cypress the way you would normally do :) click on a .feature file on th
 
 ## Cucumber Expressions
 
-We use https://docs.cucumber.io/cucumber-expressions/ to parse your .feature file, please use that document as your reference 
+We use https://docs.cucumber.io/cucumber/cucumber-expressions/ to parse your .feature file, please use that document as your reference 
 
 ## Development
 
