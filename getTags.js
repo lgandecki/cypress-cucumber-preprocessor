@@ -1,6 +1,6 @@
 const getTags = (cliArg = process.argv.join(" ")) => {
   // cliArg looks a bit like `cypress features/ --tags "~@ignore and ~@slow"`
-  const tagsRegex = new RegExp("--tags ([\"a-zA-Z @~-](?!--))+"); // eslint-disable-line no-control-regex
+  const tagsRegex = new RegExp('--tags (["a-zA-Z·@~-](?!--))+'); // eslint-disable-line no-control-regex
   // "~@ignore and ~@slow"
   const tagsArg = cliArg.match(tagsRegex)[0];
   const filter = {
