@@ -4,7 +4,7 @@ const { getTags } = require("../../../getTags");
 
 let parsedTags;
 
-given(/I pass '(.+)'/, cliArg => {
+given(/I pass the CLI option '(.+)'/, cliArg => {
   parsedTags = JSON.stringify(getTags(cliArg));
 });
 
@@ -17,7 +17,7 @@ then(/the cypress runner should not break/, () => {
   );
 });
 
-then(/scenarios tagged '(.+)' should run/, tag => {
+then(/ONLY scenarios tagged '(.+)' should run/, tag => {
   expect(parsedTags).to.deep.equal(
     JSON.stringify({
       ignore: [],
@@ -36,7 +36,7 @@ then(/all scenarios EXCEPT those tagged '(.+)' should run/, tag => {
 });
 
 then(
-  /all scenarios tagged as both '(.+)' and '(.+)' should run/,
+  /ONLY scenarios tagged both '(.+)' and '(.+)' should run/,
   (tag1, tag2) => {
     expect(parsedTags).to.deep.equal(
       JSON.stringify({
@@ -47,7 +47,7 @@ then(
   }
 );
 
-const scenariosRan = [];
+let scenariosRan = [];
 
 given(/we've run our suite of tests with the '(.+)' parameter/, parameter => {
   console.log(parameter); // @TODO
@@ -55,6 +55,7 @@ given(/we've run our suite of tests with the '(.+)' parameter/, parameter => {
 
 then(/the '(.+)' scenario should NOT have been run/, scenarioTag => {
   expect(scenariosRan).not.to.include(scenarioTag);
+  scenariosRan = []; // reset
 });
 
 then(/the '(.+)' scenario was run/, scenarioTag => {

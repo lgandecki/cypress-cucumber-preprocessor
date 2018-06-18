@@ -19,9 +19,7 @@ const getExampleValues = example => {
   return exampleValues;
 };
 
-const tagsConfig = getTags(`--tags ~@ignore`); // @TODO read from CLI, find some way of testing... (change to something else and tests fail as expected :D )
-
-const shouldIgnoreTag = scenarioTags => {
+const shouldIgnoreTag = (tagsConfig, scenarioTags) => {
   let shouldIgnoreScenario = false;
   scenarioTags.forEach(scenarioTag => {
     tagsConfig.ignore.forEach(tagToIgnore => {
@@ -33,10 +31,29 @@ const shouldIgnoreTag = scenarioTags => {
   return shouldIgnoreScenario;
 };
 
+const constructMockInternalCliArg = scenarioTags => {
+  if (scenarioTags.length > 1) {
+    return `--tags "${scenarioTags.reduce(
+      (str, tag) => `${str} ~${tag.name}`,
+      ``
+    )}"`;
+  } else if (scenarioTags.length === 1) {
+    return `--tags ~${scenarioTags[0].name}`;
+  }
+  return ``;
+};
+
 const createTestFromScenario = (scenario, backgroundSection) => {
   const scenarioTags = scenario.tags;
+  const isInternalTest = scenario.tags.reduce(
+    (_, tag) => _ || tag.name === `@custom-cypress-test`,
+    false
+  );
+  const tagsConfig = isInternalTest
+    ? getTags(constructMockInternalCliArg(scenarioTags))
+    : getTags(); // hacky. Sorry.
 
-  if (shouldIgnoreTag(scenarioTags)) {
+  if (shouldIgnoreTag(tagsConfig, scenarioTags)) {
     return;
   }
 
