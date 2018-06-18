@@ -65,12 +65,6 @@ const scenarioMustBeExplicitlyTagged = (tagsConfig, scenarioTags) => {
       doesNotValidate = true;
     }
   });
-  // console.log(
-  //   `Need to see...`,
-  //   tagsConfig.only,
-  //   `Actually see...`,
-  //   scenarioTagNames
-  // );
   return doesNotValidate;
 };
 
