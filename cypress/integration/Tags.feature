@@ -8,13 +8,13 @@ Feature: Tags
     Given I pass '--tags @smoke-tests'
     Then scenarios tagged '@smoke-tests' should run
 
-  # Scenario: Pass a tag to ignore
-  #   Given I pass '--tags ~@ignore'
-  #   Then all scenarios EXCEPT those tagged '@ignore' should run 
+  Scenario: Pass a tag to ignore
+    Given I pass '--tags ~@ignore'
+    Then all scenarios EXCEPT those tagged '@ignore' should run 
 
-  # Scenario: Passing multiple tags
-  #   Given I pass '--tags "@foo and @bar"'
-  #   Then all scenarios tagged as both '@foo' and '@bar' should run
+  Scenario: Passing multiple tags
+    Given I pass '--tags "@foo and @bar"'
+    Then all scenarios tagged as both '@foo' and '@bar' should run
 
   # @ignore
   # Scenario: Scenario tagged as @ignore
