@@ -1,6 +1,8 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
-const { getTags } = require("./getTags");
+const path = require("path");
+
+const { getTags } = require(path.resolve(__dirname, "./getTags")); // eslint-disable-line import/no-dynamic-require
 
 const stepTest = stepDetails => {
   cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
