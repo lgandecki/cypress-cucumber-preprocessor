@@ -65,10 +65,34 @@ describe("Regexp", () => {
   );
 });
 
-describe("Tags", () => {
+describe("Tags Implementation", () => {
+  require("./cypress/support/step_definitions/tags_implementation");
+
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/TagsImplementation.feature")
+  );
+});
+
+describe("Tags Ignore", () => {
   require("./cypress/support/step_definitions/tags");
 
   createTestsFromFeature(
-    readAndParseFeatureFile("./cypress/integration/Tags.feature")
+    readAndParseFeatureFile("./cypress/integration/TagsIgnore.feature")
+  );
+});
+
+describe("Tags Only", () => {
+  require("./cypress/support/step_definitions/tags");
+
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/TagsOnly.feature")
+  );
+});
+
+describe("Tags Multiple", () => {
+  require("./cypress/support/step_definitions/tags");
+
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/TagsMultiple.feature")
   );
 });

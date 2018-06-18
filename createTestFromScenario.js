@@ -19,41 +19,69 @@ const getExampleValues = example => {
   return exampleValues;
 };
 
-const shouldIgnoreTag = (tagsConfig, scenarioTags) => {
-  let shouldIgnoreScenario = false;
+/**
+ * Gives us a chance to override the tags from within our cypress-cucumber-preprocessor test suite.
+ * (Sorry, bit hacky!)
+ * Otherwise uses CLI args from the process.
+ */
+const deriveTagConfig = backgroundSection => {
+  if (backgroundSection && backgroundSection.steps.length >= 1) {
+    const isInternalTest = backgroundSection.steps[0].text.match(
+      /I pass the CLI option '(.+)'/
+    );
+    if (isInternalTest) {
+      return getTags(isInternalTest[0]);
+    }
+  }
+  return getTags();
+};
+
+/**
+ * User wants to ignore scenario, e.g. `--tags ~@ignore`
+ */
+const scenarioExplicitlyIgnored = (tagsConfig, scenarioTags) => {
+  let ignore = false;
   scenarioTags.forEach(scenarioTag => {
     tagsConfig.ignore.forEach(tagToIgnore => {
       if (scenarioTag.name === tagToIgnore) {
-        shouldIgnoreScenario = true;
+        ignore = true;
       }
     });
   });
-  return shouldIgnoreScenario;
+  return ignore;
 };
 
-const constructMockInternalCliArg = scenarioTags => {
-  if (scenarioTags.length > 1) {
-    return `--tags "${scenarioTags.reduce(
-      (str, tag) => `${str} ~${tag.name}`,
-      ``
-    )}"`;
-  } else if (scenarioTags.length === 1) {
-    return `--tags ~${scenarioTags[0].name}`;
+/**
+ * User wants to explicitly run only these scenarios, e.g. `--tags @smoke-tests`
+ */
+const scenarioMustBeExplicitlyTagged = (tagsConfig, scenarioTags) => {
+  if (tagsConfig.only.length === 0) {
+    return false;
   }
-  return ``;
+  const scenarioTagNames = scenarioTags.map(scenarioTag => scenarioTag.name);
+  let doesNotValidate = false;
+  tagsConfig.only.forEach(requiredTag => {
+    if (!scenarioTagNames.includes(requiredTag)) {
+      doesNotValidate = true;
+    }
+  });
+  // console.log(
+  //   `Need to see...`,
+  //   tagsConfig.only,
+  //   `Actually see...`,
+  //   scenarioTagNames
+  // );
+  return doesNotValidate;
 };
 
 const createTestFromScenario = (scenario, backgroundSection) => {
   const scenarioTags = scenario.tags;
-  const isInternalTest = scenario.tags.reduce(
-    (_, tag) => _ || tag.name === `@custom-cypress-test`,
-    false
-  );
-  const tagsConfig = isInternalTest
-    ? getTags(constructMockInternalCliArg(scenarioTags))
-    : getTags(); // hacky. Sorry.
+  const tagsConfig = deriveTagConfig(backgroundSection);
 
-  if (shouldIgnoreTag(tagsConfig, scenarioTags)) {
+  if (
+    scenarioExplicitlyIgnored(tagsConfig, scenarioTags) ||
+    scenarioMustBeExplicitlyTagged(tagsConfig, scenarioTags)
+  ) {
     return;
   }
 

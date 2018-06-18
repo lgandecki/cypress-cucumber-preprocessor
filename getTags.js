@@ -9,9 +9,8 @@ const getTags = (cliArg = process.argv.join(" ")) => {
   if (!tagsPassed) {
     return filter;
   }
-  const tagsArg = tagsPassed[0]; // e.g. "~@ignore and @slow"
+  const tagsArg = tagsPassed[0].replace(/"/g, ""); // e.g. "~@ignore and @slow" -> ~@ignore and @slow;
   const tags = tagsArg
-    .replace(/"/g, "") // e.g. "~@ignore and @slow" -> ~@ignore and @slow
     .split(" ") // e.g. ["~@ignore", "and", "@slow"]
     .filter(elm => !!elm.match(/(?:@|~).+$/g)); // e.g. ["~@ignore", "@slow"]
   tags.forEach(tag => {
