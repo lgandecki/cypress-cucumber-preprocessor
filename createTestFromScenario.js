@@ -1,5 +1,6 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
+const { getTags } = require("./getTags");
 
 const stepTest = stepDetails => {
   cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
@@ -18,8 +19,27 @@ const getExampleValues = example => {
   return exampleValues;
 };
 
-const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
+const tagsConfig = getTags(`--tags ~@ignore`); // @TODO read from CLI, find some way of testing... (change to something else and tests fail as expected :D )
+
+const shouldIgnoreTag = scenarioTags => {
+  let shouldIgnoreScenario = false;
+  scenarioTags.forEach(scenarioTag => {
+    tagsConfig.ignore.forEach(tagToIgnore => {
+      if (scenarioTag.name === tagToIgnore) {
+        shouldIgnoreScenario = true;
+      }
+    });
+  });
+  return shouldIgnoreScenario;
+};
+
+const createTestFromScenario = (scenario, backgroundSection) => {
   const scenarioTags = scenario.tags;
+
+  if (shouldIgnoreTag(scenarioTags)) {
+    return;
+  }
+
   if (scenario.examples) {
     scenario.examples.forEach(example => {
       getExampleValues(example).forEach((exampleValue, index) => {
@@ -43,18 +63,12 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
       });
     });
   } else {
-    const totalTags = featureTags.concat(scenarioTags);
-
-    if (totalTags.filter(tag => tag.name === "@ignore").length > 0) {
-      // ignore scenario due to ignore tag
-    } else {
-      it(scenario.name, () => {
-        if (backgroundSection) {
-          backgroundSection.steps.forEach(stepTest);
-        }
-        scenario.steps.forEach(step => stepTest(step));
-      });
-    }
+    it(scenario.name, () => {
+      if (backgroundSection) {
+        backgroundSection.steps.forEach(stepTest);
+      }
+      scenario.steps.forEach(step => stepTest(step));
+    });
   }
 };
 

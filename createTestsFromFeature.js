@@ -9,11 +9,7 @@ const createTestsFromFeature = parsedFeature => {
       section => section.type !== "Background"
     );
     otherSections.forEach(section => {
-      createTestFromScenario(
-        section,
-        backgroundSection,
-        parsedFeature.feature.tags
-      );
+      createTestFromScenario(section, backgroundSection);
     });
   });
 };

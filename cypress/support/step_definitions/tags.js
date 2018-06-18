@@ -8,6 +8,15 @@ given(/I pass '(.+)'/, cliArg => {
   parsedTags = JSON.stringify(getTags(cliArg));
 });
 
+then(/the cypress runner should not break/, () => {
+  expect(parsedTags).to.deep.equal(
+    JSON.stringify({
+      ignore: [],
+      only: []
+    })
+  );
+});
+
 then(/scenarios tagged '(.+)' should run/, tag => {
   expect(parsedTags).to.deep.equal(
     JSON.stringify({
@@ -37,3 +46,17 @@ then(
     );
   }
 );
+
+const scenariosRan = [];
+
+given(/we've run our suite of tests with the '(.+)' parameter/, parameter => {
+  console.log(parameter); // @TODO
+});
+
+then(/the '(.+)' scenario should NOT have been run/, scenarioTag => {
+  expect(scenariosRan).not.to.include(scenarioTag);
+});
+
+then(/the '(.+)' scenario was run/, scenarioTag => {
+  scenariosRan.push(scenarioTag);
+});
