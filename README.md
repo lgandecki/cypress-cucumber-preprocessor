@@ -81,6 +81,14 @@ Step definition files are by default in: cypress/support/step_definitions. If yo
   }
 ```
 
+You can also create a `cypress.json` file, for example, to configure Cypress to look for your features in a different location:
+
+```json
+{
+  "integrationFolder": "features"
+}
+```
+
 ## Running
 
 Run your cypress the way you would normally do :) click on a .feature file on the list of specs, and see the magic happening!
