@@ -94,6 +94,13 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
 
   if (scenario.examples) {
     scenario.examples.forEach(example => {
+      if (
+        scenarioExplicitlyIgnored(tagsConfig, example.tags) ||
+        scenarioMustBeExplicitlyTagged(tagsConfig, example.tags, featureTags)
+      ) {
+        return;
+      }
+
       getExampleValues(example).forEach((exampleValue, index) => {
         it(`${scenario.name} (example #${index + 1})`, () => {
           if (backgroundSection) {
