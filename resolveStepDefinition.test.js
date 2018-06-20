@@ -104,3 +104,11 @@ describe("Tags at Feature level", () => {
     readAndParseFeatureFile("./cypress/integration/TagsAtFeatureLevel.feature")
   );
 });
+
+describe("Tags in Scenario Outline", () => {
+  require("./cypress/support/step_definitions/tags");
+
+  createTestsFromFeature(
+    readAndParseFeatureFile("./cypress/integration/TagsScenarioOutline.feature")
+  );
+});
