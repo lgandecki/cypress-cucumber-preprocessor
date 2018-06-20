@@ -98,7 +98,7 @@ describe("Tags Multiple", () => {
 });
 
 describe("Tags at Feature level", () => {
-  require("./cypress/support/step_definitions/tags_at_feature");
+  require("./cypress/support/step_definitions/tags");
 
   createTestsFromFeature(
     readAndParseFeatureFile("./cypress/integration/TagsAtFeatureLevel.feature")
