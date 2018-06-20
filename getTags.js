@@ -1,24 +1,30 @@
-const getTags = (cliArg = process.argv.join(" ")) => {
+const extractTagsArgFromCli = cliArg => {
   // e.g. cliArg = `cypress features/ --tags "~@ignore and @slow"`
+  const tagsRegex = new RegExp('--tags (["a-zA-Z·@~ -](?!--))+'); // eslint-disable-line no-control-regex
+  const tagsPassed = cliArg.match(tagsRegex); // e.g. `--tags "~@ignore and @slow"`
+  return tagsPassed
+    ? tagsPassed[0].replace(/"/g, "") // e.g. `"~@ignore and @slow"` -> `~@ignore and @slow`
+    : "";
+};
+
+const tagsStringToArray = tagsString =>
+  tagsString
+    .split(" ") // e.g. ["~@ignore", "and", "@slow"]
+    .filter(elm => !!elm.match(/(?:@|~).+$/g)); // e.g. ["~@ignore", "@slow"]
+
+const nameOfTag = tag => tag.replace("~", "");
+
+const getTags = (cliArg = process.argv.join(" ")) => {
   const filter = {
     ignore: [],
     only: []
   };
-  const tagsRegex = new RegExp('--tags (["a-zA-Z·@~ -](?!--))+'); // eslint-disable-line no-control-regex
-  const tagsPassed = cliArg.match(tagsRegex); // e.g. `--tags "~@ignore and @slow"`
-  if (!tagsPassed) {
-    return filter;
-  }
-  const tagsArg = tagsPassed[0].replace(/"/g, ""); // e.g. "~@ignore and @slow" -> ~@ignore and @slow;
-  const tags = tagsArg
-    .split(" ") // e.g. ["~@ignore", "and", "@slow"]
-    .filter(elm => !!elm.match(/(?:@|~).+$/g)); // e.g. ["~@ignore", "@slow"]
+  const tags = tagsStringToArray(extractTagsArgFromCli(cliArg));
   tags.forEach(tag => {
-    const cleanTag = tag.replace("~", "");
     if (tag.startsWith("~")) {
-      filter.ignore.push(cleanTag);
+      filter.ignore.push(nameOfTag(tag));
     } else {
-      filter.only.push(cleanTag);
+      filter.only.push(nameOfTag(tag));
     }
   });
   return filter;
