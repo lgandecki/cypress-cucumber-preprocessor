@@ -14,6 +14,23 @@ Feature: Tags Only
     And the 'not smoke tests' scenario should NOT have been run
     And the '@smoke-tests' scenario SHOULD have run
 
+  Scenario Outline: Scenario outline with mixture of tags
+    Then this step marks the '<scenario>' as done
+  
+    Examples:
+      | scenario      |
+      | to-be-ignored |
+    
+    @smoke-tests
+    Examples:
+      | scenario      |
+      | do-not-ignore |
+
+  @smoke-tests
+  Scenario: Validate Tags for Scenario Outline Examples
+    Then the 'to-be-ignored' scenario should NOT have been run
+    And the 'do-not-ignore' scenario SHOULD have run
+
   @smoke-tests
   Scenario: Clear the state
     Then clear the state

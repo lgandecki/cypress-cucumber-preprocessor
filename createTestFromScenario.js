@@ -60,25 +60,41 @@ const featureFileExplicitlyIgnored = scenarioExplicitlyIgnored;
 const explicitTagRequired = tagsConfig => tagsConfig.only.length > 0;
 
 /**
+ * Given we have passed `--tags @ci`
+ * If we have a Scenario Outline, and within it we have an Examples block
+ * And the Examples block is tagged `@ci`
+ * Then the Example block satisfies the tag requirements
+ */
+const atLeastOneExampleSatisfiesTagCheck = (requiredTag, scenario) => {
+  if (!scenario.examples) {
+    return false;
+  }
+  let satisfies = false;
+  scenario.examples.forEach(example => {
+    const exampleTagNames = example.tags.map(exampleTag => exampleTag.name);
+    if (!satisfies) {
+      satisfies = exampleTagNames.includes(requiredTag);
+    }
+  });
+  return satisfies;
+};
+
+/**
  * User wants to explicitly run only these scenarios, e.g. `--tags @smoke-tests`
  */
-const scenarioFailsExplicitTagCheck = (
-  tagsConfig,
-  scenarioTags,
-  featureTags
-) => {
+const scenarioFailsExplicitTagCheck = (tagsConfig, scenario, featureTags) => {
   if (!explicitTagRequired(tagsConfig)) {
     return false;
   }
-  const scenarioTagNames = scenarioTags.map(scenarioTag => scenarioTag.name);
+  const scenarioTagNames = scenario.tags.map(scenarioTag => scenarioTag.name);
   const scenarioSatisfiesTagCheck = tagsConfig.only.reduce(
     (soFarSoGood, requiredTag) =>
       // scenario may pass one tag check but fail another, so need to keep track
       soFarSoGood &&
-      // tag can be satisfied at scenario or feature level.
-      // @TODO - also need to allow satisfaction via Scenario Examples
-      (scenarioTagNames.includes(requiredTag) ||
-        featureTags.includes(requiredTag)),
+      // tag can be satisfied at feature, scenario or example level
+      (featureTags.includes(requiredTag) || // feature level satisfaction
+      scenarioTagNames.includes(requiredTag) || // scenario level satisfaction
+        atLeastOneExampleSatisfiesTagCheck(requiredTag, scenario)), // example level satisfaction
     true // start value for `soFarSoGood`
   );
   return !scenarioSatisfiesTagCheck;
@@ -90,7 +106,7 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
   if (
     featureFileExplicitlyIgnored(tagsConfig, featureTags) ||
     scenarioExplicitlyIgnored(tagsConfig, scenario.tags) ||
-    scenarioFailsExplicitTagCheck(tagsConfig, scenario.tags, featureTags)
+    scenarioFailsExplicitTagCheck(tagsConfig, scenario, featureTags)
   ) {
     // console.info(`Skipping Scenario: ${scenario.name}`);
     return;
@@ -100,7 +116,7 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
     scenario.examples.forEach(example => {
       if (
         scenarioExplicitlyIgnored(tagsConfig, example.tags) ||
-        scenarioFailsExplicitTagCheck(tagsConfig, example.tags, featureTags)
+        scenarioFailsExplicitTagCheck(tagsConfig, example, featureTags)
       ) {
         return;
       }
