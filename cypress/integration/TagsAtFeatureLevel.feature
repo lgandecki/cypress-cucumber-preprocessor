@@ -10,7 +10,7 @@ Feature: Tags at Feature Level
     Feature: Tags at feature level
     
       Scenario: A scenario that has NOT been tagged @ignore
-        Then this step marks the '@ignore' as done
+        Then this step marks the internal '@ignore' as done
     """
     When I parse and run the feature file
-    Then the '@ignore' scenario should NOT have been run
+    Then the internal '@ignore' scenario should NOT have been run
