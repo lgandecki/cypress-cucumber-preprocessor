@@ -52,31 +52,43 @@ const scenarioExplicitlyIgnored = (tagsConfig, scenarioTags) => {
   });
   return ignore;
 };
+/**
+ * User wants to ignore feature, e.g. `--tags ~@ignore`
+ */
+const featureFileExplicitlyIgnored = scenarioExplicitlyIgnored;
 
 /**
  * User wants to explicitly run only these scenarios, e.g. `--tags @smoke-tests`
  */
-const scenarioMustBeExplicitlyTagged = (tagsConfig, scenarioTags) => {
+const scenarioMustBeExplicitlyTagged = (
+  tagsConfig,
+  scenarioTags,
+  featureTags
+) => {
   if (tagsConfig.only.length === 0) {
     return false;
   }
   const scenarioTagNames = scenarioTags.map(scenarioTag => scenarioTag.name);
   let doesNotValidate = false;
   tagsConfig.only.forEach(requiredTag => {
-    if (!scenarioTagNames.includes(requiredTag)) {
+    if (
+      !scenarioTagNames.includes(requiredTag) &&
+      !featureTags.includes(requiredTag)
+    ) {
       doesNotValidate = true;
     }
   });
   return doesNotValidate;
 };
 
-const createTestFromScenario = (scenario, backgroundSection) => {
+const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
   const scenarioTags = scenario.tags;
   const tagsConfig = deriveTagConfig(backgroundSection);
 
   if (
+    featureFileExplicitlyIgnored(tagsConfig, featureTags) ||
     scenarioExplicitlyIgnored(tagsConfig, scenarioTags) ||
-    scenarioMustBeExplicitlyTagged(tagsConfig, scenarioTags)
+    scenarioMustBeExplicitlyTagged(tagsConfig, scenarioTags, featureTags)
   ) {
     return;
   }
