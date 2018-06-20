@@ -14,5 +14,6 @@ Feature: Tags Only
     And the 'not smoke tests' scenario should NOT have been run
     And the '@smoke-tests' scenario SHOULD have run
 
+  @smoke-tests
   Scenario: Clear the state
     Then clear the state

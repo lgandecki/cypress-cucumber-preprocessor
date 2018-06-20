@@ -20,5 +20,6 @@ Feature: Tags Multiple
     And the '@foo' scenario should NOT have been run
     And the '@bar' scenario should NOT have been run
 
+  @foo @bar
   Scenario: Clear the state
     Then clear the state
