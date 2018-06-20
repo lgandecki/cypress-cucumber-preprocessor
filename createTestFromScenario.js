@@ -52,10 +52,6 @@ const scenarioExplicitlyIgnored = (tagsConfig, scenarioTags) => {
   });
   return ignore;
 };
-/**
- * User wants to ignore feature, e.g. `--tags ~@ignore`
- */
-const featureFileExplicitlyIgnored = scenarioExplicitlyIgnored;
 
 const explicitTagRequired = tagsConfig => tagsConfig.only.length > 0;
 
@@ -82,33 +78,46 @@ const atLeastOneExampleSatisfiesTagCheck = (requiredTag, scenario) => {
 /**
  * User wants to explicitly run only these scenarios, e.g. `--tags @smoke-tests`
  */
-const scenarioFailsExplicitTagCheck = (tagsConfig, scenario, featureTags) => {
-  if (!explicitTagRequired(tagsConfig)) {
-    return false;
-  }
+const scenarioFailsExplicitTagCheck = (tagsConfig, scenario) => {
   const scenarioTagNames = scenario.tags.map(scenarioTag => scenarioTag.name);
   const scenarioSatisfiesTagCheck = tagsConfig.only.reduce(
     (soFarSoGood, requiredTag) =>
       // scenario may pass one tag check but fail another, so need to keep track
       soFarSoGood &&
       // tag can be satisfied at feature, scenario or example level
-      (featureTags.includes(requiredTag) || // feature level satisfaction
-      scenarioTagNames.includes(requiredTag) || // scenario level satisfaction
+      (scenarioTagNames.includes(requiredTag) || // scenario level satisfaction
         atLeastOneExampleSatisfiesTagCheck(requiredTag, scenario)), // example level satisfaction
     true // start value for `soFarSoGood`
   );
   return !scenarioSatisfiesTagCheck;
 };
 
+/**
+ * Children inherit tags from their parents, e.g.
+ * A Feature tagged @ci should have that tag apply to its Scenarios
+ * See https://docs.cucumber.io/cucumber/api/#tag-inheritance
+ */
+const inheritTags = (scenario, featureTags = []) => {
+  /* eslint-disable no-param-reassign */
+  scenario.tags = featureTags.concat(scenario.tags);
+  if (scenario.examples) {
+    scenario.examples.forEach(example => {
+      example.tags = scenario.tags.concat(example.tags);
+    });
+  }
+  /* eslint-enable no-param-reassign */
+};
+
 const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
   const tagsConfig = deriveTagConfig(backgroundSection);
+  inheritTags(scenario, featureTags);
 
   if (
-    featureFileExplicitlyIgnored(tagsConfig, featureTags) ||
     scenarioExplicitlyIgnored(tagsConfig, scenario.tags) ||
-    scenarioFailsExplicitTagCheck(tagsConfig, scenario, featureTags)
+    (explicitTagRequired(tagsConfig) &&
+      scenarioFailsExplicitTagCheck(tagsConfig, scenario))
   ) {
-    // console.info(`Skipping Scenario: ${scenario.name}`);
+    // console.info(`Skipping Scenario: ${scenario.name}`); // @TODO could be useful to expose
     return;
   }
 
@@ -116,7 +125,8 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
     scenario.examples.forEach(example => {
       if (
         scenarioExplicitlyIgnored(tagsConfig, example.tags) ||
-        scenarioFailsExplicitTagCheck(tagsConfig, example, featureTags)
+        (explicitTagRequired(tagsConfig) &&
+          scenarioFailsExplicitTagCheck(tagsConfig, example))
       ) {
         return;
       }
