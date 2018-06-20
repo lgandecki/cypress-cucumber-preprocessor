@@ -19,6 +19,16 @@ const getExampleValues = example => {
   return exampleValues;
 };
 
+const overrideStep = (step, exampleValue) => {
+  const newStep = Object.assign({}, step);
+  Object.entries(exampleValue).forEach(column => {
+    if (newStep.text.includes("<" + column[0] + ">")) {
+      newStep.text = newStep.text.replace("<" + column[0] + ">", column[1]);
+    }
+  });
+  return newStep;
+};
+
 /**
  * Gives us a chance to override the tags from within our cypress-cucumber-preprocessor test suite. (Sorry, bit hacky!)
  * We can override by setting our first Background step as:
@@ -108,55 +118,51 @@ const inheritTags = (scenario, featureTags = []) => {
   /* eslint-enable no-param-reassign */
 };
 
-const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
-  const tagsConfig = deriveTagConfig(backgroundSection);
-  inheritTags(scenario, featureTags);
+const runTest = ({
+  scenarioName,
+  scenario,
+  backgroundSection,
+  stepOverride = step => step
+}) => {
+  it(scenarioName, () => {
+    if (backgroundSection) {
+      backgroundSection.steps.forEach(stepTest);
+    }
+    scenario.steps.forEach(step => stepTest(stepOverride(step)));
+  });
+};
 
-  if (
+const tagsValidate = (scenario, tagsConfig) =>
+  !(
     scenarioExplicitlyIgnored(tagsConfig, scenario.tags) ||
     (explicitTagRequired(tagsConfig) &&
       scenarioFailsExplicitTagCheck(tagsConfig, scenario))
-  ) {
-    // console.info(`Skipping Scenario: ${scenario.name}`); // @TODO could be useful to expose
-    return;
-  }
+  );
 
-  if (scenario.examples) {
-    scenario.examples.forEach(example => {
-      if (
-        scenarioExplicitlyIgnored(tagsConfig, example.tags) ||
-        (explicitTagRequired(tagsConfig) &&
-          scenarioFailsExplicitTagCheck(tagsConfig, example))
-      ) {
-        return;
-      }
+const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
+  inheritTags(scenario, featureTags);
+  const tagsConfig = deriveTagConfig(backgroundSection);
+  const testConfig = {
+    scenarioName: scenario.name,
+    scenario,
+    backgroundSection
+  };
 
-      getExampleValues(example).forEach((exampleValue, index) => {
-        it(`${scenario.name} (example #${index + 1})`, () => {
-          if (backgroundSection) {
-            backgroundSection.steps.forEach(stepTest);
-          }
-          scenario.steps.forEach(step => {
-            const newStep = Object.assign({}, step);
-            Object.entries(exampleValue).forEach(column => {
-              if (newStep.text.includes("<" + column[0] + ">")) {
-                newStep.text = newStep.text.replace(
-                  "<" + column[0] + ">",
-                  column[1]
-                );
-              }
-            });
-            stepTest(newStep);
-          });
-        });
-      });
-    });
+  if (!scenario.examples) {
+    if (tagsValidate(scenario, tagsConfig)) {
+      runTest(testConfig);
+    }
   } else {
-    it(scenario.name, () => {
-      if (backgroundSection) {
-        backgroundSection.steps.forEach(stepTest);
-      }
-      scenario.steps.forEach(step => stepTest(step));
+    scenario.examples.forEach(example => {
+      getExampleValues(example).forEach((exampleValue, index) => {
+        if (tagsValidate(example, tagsConfig)) {
+          const exampleTestConfig = Object.assign(testConfig, {
+            scenarioName: `${scenario.name} (example #${index + 1})`,
+            stepOverride: step => overrideStep(step, exampleValue)
+          });
+          runTest(exampleTestConfig);
+        }
+      });
     });
   }
 };
