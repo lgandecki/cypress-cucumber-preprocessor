@@ -20,8 +20,10 @@ const getExampleValues = example => {
 };
 
 /**
- * Gives us a chance to override the tags from within our cypress-cucumber-preprocessor test suite.
- * (Sorry, bit hacky!)
+ * Gives us a chance to override the tags from within our cypress-cucumber-preprocessor test suite. (Sorry, bit hacky!)
+ * We can override by setting our first Background step as:
+ *   `Given I pass the CLI option '(.+)'`
+ * ...where `(.+)` is something like `--tags ~@ignore`
  * Otherwise uses CLI args from the process.
  */
 const deriveTagConfig = backgroundSection => {
@@ -55,38 +57,40 @@ const scenarioExplicitlyIgnored = (tagsConfig, scenarioTags) => {
  */
 const featureFileExplicitlyIgnored = scenarioExplicitlyIgnored;
 
+const explicitTagRequired = tagsConfig => tagsConfig.only.length > 0;
+
 /**
  * User wants to explicitly run only these scenarios, e.g. `--tags @smoke-tests`
  */
-const scenarioMustBeExplicitlyTagged = (
+const scenarioFailsExplicitTagCheck = (
   tagsConfig,
   scenarioTags,
   featureTags
 ) => {
-  if (tagsConfig.only.length === 0) {
+  if (!explicitTagRequired(tagsConfig)) {
     return false;
   }
   const scenarioTagNames = scenarioTags.map(scenarioTag => scenarioTag.name);
-  let doesNotValidate = false;
-  tagsConfig.only.forEach(requiredTag => {
-    if (
-      !scenarioTagNames.includes(requiredTag) &&
-      !featureTags.includes(requiredTag)
-    ) {
-      doesNotValidate = true;
-    }
-  });
-  return doesNotValidate;
+  const scenarioSatisfiesTagCheck = tagsConfig.only.reduce(
+    (soFarSoGood, requiredTag) =>
+      // scenario may pass one tag check but fail another, so need to keep track
+      soFarSoGood &&
+      // tag can be satisfied at scenario or feature level.
+      // @TODO - also need to allow satisfaction via Scenario Examples
+      (scenarioTagNames.includes(requiredTag) ||
+        featureTags.includes(requiredTag)),
+    true // start value for `soFarSoGood`
+  );
+  return !scenarioSatisfiesTagCheck;
 };
 
 const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
-  const scenarioTags = scenario.tags;
   const tagsConfig = deriveTagConfig(backgroundSection);
 
   if (
     featureFileExplicitlyIgnored(tagsConfig, featureTags) ||
-    scenarioExplicitlyIgnored(tagsConfig, scenarioTags) ||
-    scenarioMustBeExplicitlyTagged(tagsConfig, scenarioTags, featureTags)
+    scenarioExplicitlyIgnored(tagsConfig, scenario.tags) ||
+    scenarioFailsExplicitTagCheck(tagsConfig, scenario.tags, featureTags)
   ) {
     // console.info(`Skipping Scenario: ${scenario.name}`);
     return;
@@ -96,7 +100,7 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
     scenario.examples.forEach(example => {
       if (
         scenarioExplicitlyIgnored(tagsConfig, example.tags) ||
-        scenarioMustBeExplicitlyTagged(tagsConfig, example.tags, featureTags)
+        scenarioFailsExplicitTagCheck(tagsConfig, example.tags, featureTags)
       ) {
         return;
       }
