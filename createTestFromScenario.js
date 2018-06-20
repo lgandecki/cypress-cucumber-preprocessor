@@ -1,8 +1,6 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
-const path = require("path");
-
-const { getTags } = require(path.resolve(__dirname, "./getTags")); // eslint-disable-line import/no-dynamic-require
+const { getTags } = require("./getTags");
 
 const stepTest = stepDetails => {
   cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
@@ -90,6 +88,7 @@ const createTestFromScenario = (scenario, backgroundSection, featureTags) => {
     scenarioExplicitlyIgnored(tagsConfig, scenarioTags) ||
     scenarioMustBeExplicitlyTagged(tagsConfig, scenarioTags, featureTags)
   ) {
+    // console.info(`Skipping Scenario: ${scenario.name}`);
     return;
   }
 

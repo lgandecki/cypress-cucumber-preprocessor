@@ -9,6 +9,8 @@ Feature: Tags Ignore
   Scenario: Scenario tagged as @ignore
     Then this step marks the '@ignore' as done
 
-  # this is a code smell because scenarios should be able to be run in isolation... but anyway...
   Scenario: Validate scenario tagged as @ignore
     Then the '@ignore' scenario should NOT have been run
+
+  Scenario: Clear the state
+    Then clear the state

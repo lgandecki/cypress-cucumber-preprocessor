@@ -15,6 +15,7 @@ const watchers = {};
 const createCucumber = (spec, definitions) =>
   `
   const {resolveAndRunStepDefinition, given, when, then} = require('cypress-cucumber-preprocessor/resolveStepDefinition');
+  const { getTags } = require('cypress-cucumber-preprocessor/getTags');
   const { createTestFromScenario } = require('cypress-cucumber-preprocessor/createTestFromScenario');
   const { createTestsFromFeature } = require('cypress-cucumber-preprocessor/createTestsFromFeature');
   ${eval(definitions).join("\n")}

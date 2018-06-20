@@ -1,8 +1,6 @@
 /* global given, then */
 
-const path = require("path");
-
-const { getTags } = require(path.resolve(__dirname, "../../../getTags")); // eslint-disable-line import/no-dynamic-require
+const { getTags } = require("cypress-cucumber-preprocessor/getTags"); // eslint-disable-line import/no-extraneous-dependencies
 
 let parsedTags;
 

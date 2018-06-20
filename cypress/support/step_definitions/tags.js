@@ -3,7 +3,8 @@
 let scenariosRan = [];
 
 given(/I pass the CLI option '(.+)'/, () => {
-  scenariosRan = []; // reset
+  // the CLI option overrides the call to `getTags` so it doesn't look
+  // at the ACTUAL CLI option passed. Just for testing purposes.
 });
 
 then(/this step marks the '(.+)' as done/, scenarioTag => {
@@ -16,4 +17,8 @@ then(/the '(.+)' scenario should NOT have been run/, scenarioTag => {
 
 then(/the '(.+)' scenario SHOULD have run/, scenarioTag => {
   expect(scenariosRan).to.include(scenarioTag);
+});
+
+then(/clear the state/, () => {
+  scenariosRan = []; // reset. Hacky, I know.
 });
