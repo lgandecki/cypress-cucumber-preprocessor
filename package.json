@@ -35,14 +35,14 @@
     "through": "^2.3.8"
   },
   "devDependencies": {
-    "cypress": "^2.0.1",
+    "cypress": "^3.0.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
-    "jest": "^22.4.2",
+    "jest": "^23.1.0",
     "prettier": "^1.10.2"
   },
   "jest": {
