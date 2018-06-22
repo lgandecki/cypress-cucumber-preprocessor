@@ -91,13 +91,13 @@ const atLeastOneExampleSatisfiesTagCheck = (requiredTag, scenario) => {
 const scenarioFailsExplicitTagCheck = (tagsConfig, scenario) => {
   const scenarioTagNames = scenario.tags.map(scenarioTag => scenarioTag.name);
   const scenarioSatisfiesTagCheck = tagsConfig.only.reduce(
-    (soFarSoGood, requiredTag) =>
+    (hasPassedChecksSoFar, requiredTag) =>
       // scenario may pass one tag check but fail another, so need to keep track
-      soFarSoGood &&
+      hasPassedChecksSoFar &&
       // tag can be satisfied at feature, scenario or example level
       (scenarioTagNames.includes(requiredTag) || // scenario level satisfaction
         atLeastOneExampleSatisfiesTagCheck(requiredTag, scenario)), // example level satisfaction
-    true // start value for `soFarSoGood`
+    true // start value for `hasPassedChecksSoFar`
   );
   return !scenarioSatisfiesTagCheck;
 };
