@@ -1,16 +1,11 @@
-/* global given, when, then */
-
-const Given = given;
-const When = when;
-const Then = then;
-
+/* global Given, When, Then */
 let counter = 0;
 
 Given(`I am using the Cypress Cucumber plugin`, () => {
   counter += 1;
 });
 
-When(`I write my steps using caps`, () => {
+When(/^I write my steps using caps$/, () => {
   counter += 1;
 });
 
