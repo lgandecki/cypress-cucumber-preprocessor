@@ -66,14 +66,5 @@ module.exports = {
   },
   then: (expression, implementation) => {
     stepDefinitionRegistry.runtime(expression, implementation);
-  },
-  Given: (expression, implementation) => {
-    stepDefinitionRegistry.runtime(expression, implementation);
-  },
-  When: (expression, implementation) => {
-    stepDefinitionRegistry.runtime(expression, implementation);
-  },
-  Then: (expression, implementation) => {
-    stepDefinitionRegistry.runtime(expression, implementation);
   }
 };

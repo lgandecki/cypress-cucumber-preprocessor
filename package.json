@@ -47,8 +47,5 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/setupTestFramework.js"
-  },
-  "cypress-cucumber-preprocessor": {
-    "step_definitions": "cypress/support/step_definitions/"
   }
 }
