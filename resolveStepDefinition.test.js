@@ -3,8 +3,14 @@
 const fs = require("fs");
 const { Parser } = require("gherkin");
 const { createTestsFromFeature } = require("./createTestsFromFeature");
-const { when, then, given } = require("./resolveStepDefinition");
+const {
+  defineParameterType,
+  when,
+  then,
+  given
+} = require("./resolveStepDefinition");
 
+window.defineParameterType = defineParameterType;
 window.when = when;
 window.then = then;
 window.given = given;
@@ -62,5 +68,14 @@ describe("Regexp", () => {
   require("./cypress/support/step_definitions/regexp");
   createTestsFromFeature(
     readAndParseFeatureFile("./cypress/integration/RegularExpressions.feature")
+  );
+});
+
+describe("Custom Parameter Types", () => {
+  require("./cypress/support/step_definitions/customParameterTypes");
+  createTestsFromFeature(
+    readAndParseFeatureFile(
+      "./cypress/integration/CustomParameterTypes.feature"
+    )
   );
 });
