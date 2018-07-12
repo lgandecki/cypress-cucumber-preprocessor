@@ -121,6 +121,38 @@ module.exports = on => {
   on('file:preprocessor', cucumber())
 }
 ```
+## Vue-cli v3
+
+If you're using vue-cli and installing Cypress as a vue-cli plugin, (@vue/cli-plugin-e2e-cypress) you need to do the following:
+
+SKIP adding this lines to package.json
+```javascript
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/support/step_definitions/"
+  }
+```
+
+Then add the following lines to your `tests/e2e/plugins/index.js`
+```javascript
+// https://docs.cypress.io/guides/guides/plugins-guide.html
+const cucumber = require('cypress-cucumber-preprocessor').default;
+
+module.exports = (on, config) => {
+
+  on('file:preprocessor', cucumber()) // This line add the preprocessor
+
+  return Object.assign({}, config, {
+    fixturesFolder: 'tests/e2e/fixtures',
+    integrationFolder: 'tests/e2e/specs',
+    screenshotsFolder: 'tests/e2e/screenshots',
+    videosFolder: 'tests/e2e/videos',
+    supportFile: 'tests/e2e/support/index.js',
+    step_definitions: 'tests/e2e/support/step_definitions/', // This line replace the line in package.json
+  })
+};
+```
+
+And that's it!
 
 ## TODO
 
