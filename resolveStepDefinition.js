@@ -1,24 +1,34 @@
 const DataTable = require("cucumber/lib/models/data_table").default;
 const {
+  defineParameterType
+} = require("cucumber/lib/support_code_library_builder/define_helpers");
+const {
   CucumberExpression,
   RegularExpression,
   ParameterTypeRegistry
 } = require("cucumber-expressions");
 
-const parameterTypeRegistry = new ParameterTypeRegistry();
-
 class StepDefinitionRegistry {
   constructor() {
     this.definitions = {};
     this.runtime = {};
+    this.options = {
+      parameterTypeRegistry: new ParameterTypeRegistry()
+    };
 
     this.definitions = [];
     this.runtime = (matcher, implementation) => {
       let expression;
       if (matcher instanceof RegExp) {
-        expression = new RegularExpression(matcher, parameterTypeRegistry);
+        expression = new RegularExpression(
+          matcher,
+          this.options.parameterTypeRegistry
+        );
       } else {
-        expression = new CucumberExpression(matcher, parameterTypeRegistry);
+        expression = new CucumberExpression(
+          matcher,
+          this.options.parameterTypeRegistry
+        );
       }
       this.definitions.push({ implementation, expression });
     };
@@ -66,5 +76,6 @@ module.exports = {
   },
   then: (expression, implementation) => {
     stepDefinitionRegistry.runtime(expression, implementation);
-  }
+  },
+  defineParameterType: defineParameterType(stepDefinitionRegistry)
 };

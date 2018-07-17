@@ -12,12 +12,16 @@ const watchers = {};
 
 // This is the template for the file that we will send back to cypress instead of the text of a
 // feature file
-const createCucumber = (spec, definitions) =>
+const createCucumber = (spec, toRequire) =>
   `
-  const {resolveAndRunStepDefinition, given, when, then} = require('cypress-cucumber-preprocessor/resolveStepDefinition');
+  const {resolveAndRunStepDefinition, defineParameterType, given, when, then} = require('cypress-cucumber-preprocessor/resolveStepDefinition');
+  const Given = window.Given = window.given = given;
+  const When = window.When = window.when = when;
+  const Then = window.Then = window.then = then;
+  window.defineParameterType = defineParameterType;
   const { createTestFromScenario } = require('cypress-cucumber-preprocessor/createTestFromScenario');
   const { createTestsFromFeature } = require('cypress-cucumber-preprocessor/createTestsFromFeature');
-  ${eval(definitions).join("\n")}
+  ${eval(toRequire).join("\n")}
   const {Parser, Compiler} = require('gherkin');
   const spec = \`${spec}\`
   const gherkinAst = new Parser().parse(spec);
@@ -50,24 +54,12 @@ const pattern = createPattern();
 
 const stepDefinitionsPaths = [].concat(glob.sync(pattern));
 
-const compile = (spec, file) => {
+const compile = spec => {
   log("compiling", spec);
-  const pathToUse = path.relative(
-    path.dirname(file),
-    `${process.cwd()}/cypress/support/step_definitions/`
+  const stepDefinitionsToRequire = stepDefinitionsPaths.map(
+    sdPath => `require('${sdPath}')`
   );
-  const definitions = stepDefinitionsPaths.map(sdPath => {
-    const definition = fs
-      .readFileSync(sdPath)
-      .toString()
-      .replace(/require\('.\//g, `require('${pathToUse}/`)
-      .replace(/require\(".\//g, `require("${pathToUse}/`);
-    return `{ 
-    ${definition} 
-    }`;
-  });
-
-  return createCucumber(spec, JSON.stringify(definitions));
+  return createCucumber(spec, stepDefinitionsToRequire);
 };
 
 const touch = filename => {
@@ -83,7 +75,7 @@ const transform = file => {
   function end() {
     if (file.match(".feature$")) {
       log("compiling feature ", file);
-      this.queue(compile(data, file));
+      this.queue(compile(data));
     } else {
       this.queue(data);
     }

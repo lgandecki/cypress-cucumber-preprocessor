@@ -23,26 +23,26 @@ Put your step definitions in cypress/support/step_definitions
 Examples:
 cypress/support/step_definitions/google.js
 ```javascript
-/* global given */
+/* global Given */
 // you can have external state, and also require things!
 const url = 'https://google.com'
 
-given('I open Google page', () => {
+Given('I open Google page', () => {
   cy.visit(url)
 })
 ```
 
 cypress/support/step_definitions/shared.js
 ```javascript
-/* global then */
-then(`I see {string} in the title`, (title) => {
+/* global Then */
+Then(`I see {string} in the title`, (title) => {
   cy.title().should('include', title)
 })
 ```
 
-Since given/when/then are on global scope please use
+Since Given/When/Then are on global scope please use
 ```javascript
-/* global then, when, given */
+/* global Given, When, Then */
 ```
 to make IDE/linter happy
 
@@ -139,19 +139,68 @@ npm test
 
 Please let me know if you find any issues or have suggestions for improvements.
 
-## TypeScript
+## Custom Parameter Type Resolves
 
-You can use this package with TypeScript!
+Thanks to @Oltodo we can know use Custom Parameter Type Resolves. 
+Here is an [example](cypress/support/step_definitions/customParameterTypes.js) with related [.feature file](cypress/integration/CustomParameterTypes.feature)
+
+## WebStorm Support
+
+If you want WebStorm to resolve your steps, use the capitalized Given/When/Then function names (instead of the initial given/when/then). 
+Unfortunately, at this point WebStorm only understands regexp syntax:
+ ```javascript
+ Given(/^user navigated to the Start page?/, () => { });
+```
+Or a backtick syntax but without Cucumber Expressions :-(.
+In other words, this works:
+```javascript
+Given(`user navigated to the start page`, () => { });
+Then(/(.*?) is chosen/, choice => {})
+```
+
+But this doesn't:
 
 ```javascript
-module.exports = on => {
-  on('file:preprocessor', cypressTypeScriptPreprocessor)
-  on('file:preprocessor', cucumber())
-}
+Then(`{word} is chosen`, choice => {})
+```
+ (See #56)
+
+
+## TypeScript
+
+If you want to use TypeScript put this in your plugins/index.js:
+
+```javascript
+const cucumber = require("cypress-cucumber-preprocessor").default;
+const browserify = require("@cypress/browserify-preprocessor");
+
+module.exports = (on) => {
+  on("file:preprocessor", file => {
+      browserify.defaultOptions.browserifyOptions.plugin.push(["tsify"])
+      return cucumber(
+        browserify.defaultOptions
+      )(file);
+  });
+};
+```
+
+...and install tsify. I'm assuming you already have typescript installed. :-)
+
+```bash
+npm install tsify
+```
+
+Then in your .ts files you need to make sure you either require/import the functions defining step definitions, or declare them as global:
+
+```typescript
+declare const Given, When, Then;
+// OR
+const {given, when, then} = require('cypress-cucumber-preprocessor/resolveStepDefinition')
 ```
 
 ## TODO
 
+Tags!
 (Maybe?) Option to customize mocha template ( #3 ) 
 
 ## Credit where it's due!

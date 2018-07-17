@@ -1,6 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2017-07-14
+Added instructions for using TypeScript ( #61  - thanks to @KeithGillette for discovering that it never actually worked, made possible by 1.2.0 with the input from @bensampaio )
+
+## [1.2.0] - 2018-07-13
+
+Works with Imports/Exports ! ( #52 #20 )
+This possibly opens the road to using TypeScript as well :-)
+Thanks to @bensampaio for the dead on suggestion how to get around this problem. :-) 
+
+## [1.1.0] - 2018-07-13
+
+### Added
+Custom Parameter types ( #66 - thanks to @oltodo !)
+Support for WebStorm Step Definitions recognition ( #56 thanks kayvanbree vadimromanyak )
+
+### Chores
+Updated dependencies ( Thanks @ryzy )
+Fixed documentation 404 link ( Thanks ChrisBashton !)
+Updated documentation to say that TypeScript doesn't work after all :-( ( thanks to @KeithGillette for help with debugging this) 
+
 ## [1.0.0] - 2018-04-21
 
 ### Added
