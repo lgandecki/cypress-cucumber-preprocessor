@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2017-07-17
+Add example of sharing context between given, when, then steps to README file (#37).
+
 ## [1.2.1] - 2017-07-14
 Added instructions for using TypeScript ( #61  - thanks to @KeithGillette for discovering that it never actually worked, made possible by 1.2.0 with the input from @bensampaio )
 
