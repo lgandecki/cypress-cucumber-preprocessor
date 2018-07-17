@@ -48,6 +48,34 @@ to make IDE/linter happy
 
 We had a pattern to import those explicitly, but for some reason it was messing up the watch mode on Linux :-( (#10)
 
+### Sharing context
+
+You can share context between step definitions using `cy.as()` alias.
+
+Example:
+```javascript
+given('I go to the add new item page', () => {
+  cy.visit('/addItem');
+});
+
+when('I add a new item', () => { 
+  cy.get('input[name="addNewItem"]').as('addNewItemInput');
+  cy.get('@addNewItemInput').type('My item');
+  cy.get('button[name="submitItem"]').click();
+})
+
+then('I see new item added', () => {
+  cy.get('td:contains("My item")');
+});
+
+then('I can add another item', () => {
+  expect(cy.get('@addNewItemInput').should('be.empty');
+});
+
+```
+
+For more information please visit: https://docs.cypress.io/api/commands/as.html
+
 ## Spec/Feature files
 Your feature file in cypress/integration:
 
