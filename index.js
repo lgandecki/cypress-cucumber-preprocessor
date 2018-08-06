@@ -96,7 +96,7 @@ const preprocessor = (options = browserify.defaultOptions) => file => {
         const stepFile = new EventEmitter();
         stepFile.filePath = stepPath;
 
-        const bundleDir = file.outputPath.split("/").slice(0, -2);
+        const bundleDir = file.outputPath.split(path.sep).slice(0, -2);
         const outputName = stepPath.split("/").slice(-3);
         stepFile.outputPath = bundleDir.concat(outputName).join("/");
         stepFile.shouldWatch = file.shouldWatch;
