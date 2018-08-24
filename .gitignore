@@ -61,3 +61,6 @@ typings/
 
 cypress/videos
 cypress/screenshots
+
+#optional .vscode settings directory
+.vscode

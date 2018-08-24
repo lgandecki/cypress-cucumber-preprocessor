@@ -1,4 +1,3 @@
-// eslint-disable-linebreak-style
 const cucumber = require("cypress-cucumber-preprocessor").default; // eslint-disable-line
 
 module.exports = on => {
