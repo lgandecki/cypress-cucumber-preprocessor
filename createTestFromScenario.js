@@ -1,10 +1,10 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
 
-const stepTest = stepDetails => {
-  cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
-  resolveAndRunStepDefinition(stepDetails);
-};
+const stepTest = stepDetails =>
+  it(`${stepDetails.keyword} ${stepDetails.text}`, () => {
+    resolveAndRunStepDefinition(stepDetails);
+  });
 
 const createTestFromScenario = (scenario, backgroundSection) => {
   if (scenario.examples) {
@@ -20,7 +20,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       });
 
       exampleValues.forEach((_, index) => {
-        it(`${scenario.name} (example #${index + 1})`, () => {
+        describe(`${scenario.name} (example #${index + 1})`, () => {
           if (backgroundSection) {
             backgroundSection.steps.forEach(stepTest);
           }
@@ -42,7 +42,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       });
     });
   } else {
-    it(scenario.name, () => {
+    describe(scenario.name, () => {
       if (backgroundSection) {
         backgroundSection.steps.forEach(stepTest);
       }
