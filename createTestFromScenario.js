@@ -1,9 +1,9 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
 
-const stepTest = stepDetails => {
+const stepTest = function(stepDetails) {
   cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
-  resolveAndRunStepDefinition(stepDetails);
+  resolveAndRunStepDefinition.call(this, stepDetails);
 };
 
 const createTestFromScenario = (scenario, backgroundSection) => {
@@ -20,9 +20,12 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       });
 
       exampleValues.forEach((_, index) => {
-        it(`${scenario.name} (example #${index + 1})`, () => {
+        // eslint-disable-next-line prefer-arrow-callback
+        it(`${scenario.name} (example #${index + 1})`, function() {
           if (backgroundSection) {
-            backgroundSection.steps.forEach(stepTest);
+            backgroundSection.steps.forEach(step => {
+              stepTest.call(this, step);
+            });
           }
 
           scenario.steps.forEach(step => {
@@ -36,17 +39,17 @@ const createTestFromScenario = (scenario, backgroundSection) => {
               }
             });
 
-            stepTest(newStep);
+            stepTest.call(this, newStep);
           });
         });
       });
     });
   } else {
-    it(scenario.name, () => {
+    it(scenario.name, function() {
       if (backgroundSection) {
-        backgroundSection.steps.forEach(stepTest);
+        backgroundSection.steps.forEach(step => stepTest.call(this, step));
       }
-      scenario.steps.forEach(step => stepTest(step));
+      scenario.steps.forEach(step => stepTest.call(this, step));
     });
   }
 };

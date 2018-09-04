@@ -1,7 +1,8 @@
 const { createTestFromScenario } = require("./createTestFromScenario");
 
 const createTestsFromFeature = parsedFeature => {
-  describe(parsedFeature.feature.name, () => {
+  // eslint-disable-next-line prefer-arrow-callback
+  describe(parsedFeature.feature.name, function() {
     const backgroundSection = parsedFeature.feature.children.find(
       section => section.type === "Background"
     );

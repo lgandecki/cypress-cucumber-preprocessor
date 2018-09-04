@@ -45,12 +45,12 @@ function resolveStepDefinition(step) {
     step.keyword.toLowerCase().trim(),
     step.text
   );
-
   return stepDefinition || {};
 }
 
 module.exports = {
-  resolveAndRunStepDefinition: step => {
+  // eslint-disable-next-line func-names
+  resolveAndRunStepDefinition(step) {
     const { expression, implementation } = resolveStepDefinition(step);
     if (expression && implementation) {
       let argument;
@@ -61,7 +61,8 @@ module.exports = {
           argument = step.argument.content;
         }
       }
-      return implementation(
+      return implementation.call(
+        this,
         ...expression.match(step.text).map(match => match.getValue()),
         argument
       );
