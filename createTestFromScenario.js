@@ -6,6 +6,12 @@ const stepTest = function(stepDetails) {
   resolveAndRunStepDefinition.call(this, stepDetails);
 };
 
+const replaceParameterTags = (rowData, text) =>
+  Object.keys(rowData).reduce(
+    (value, key) => value.replace(`<${key}>`, rowData[key]),
+    text
+  );
+
 const createTestFromScenario = (scenario, backgroundSection) => {
   if (scenario.examples) {
     scenario.examples.forEach(example => {
@@ -19,9 +25,10 @@ const createTestFromScenario = (scenario, backgroundSection) => {
         });
       });
 
-      exampleValues.forEach((_, index) => {
+      exampleValues.forEach((rowData, index) => {
         // eslint-disable-next-line prefer-arrow-callback
-        it(`${scenario.name} (example #${index + 1})`, function() {
+        const scenarioName = replaceParameterTags(rowData, scenario.name);
+        it(`${scenarioName} (example #${index + 1})`, function() {
           if (backgroundSection) {
             backgroundSection.steps.forEach(step => {
               stepTest.call(this, step);
@@ -30,14 +37,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
 
           scenario.steps.forEach(step => {
             const newStep = Object.assign({}, step);
-            Object.entries(exampleValues[index]).forEach(column => {
-              if (newStep.text.includes("<" + column[0] + ">")) {
-                newStep.text = newStep.text.replace(
-                  "<" + column[0] + ">",
-                  column[1]
-                );
-              }
-            });
+            newStep.text = replaceParameterTags(rowData, newStep.text);
 
             stepTest.call(this, newStep);
           });
