@@ -58,7 +58,7 @@ given('I go to the add new item page', () => {
   cy.visit('/addItem');
 });
 
-when('I add a new item', () => { 
+when('I add a new item', () => {
   cy.get('input[name="addNewItem"]').as('addNewItemInput');
   cy.get('@addNewItemInput').type('My item');
   cy.get('button[name="submitItem"]').click();
@@ -103,6 +103,8 @@ module.exports = (on, config) => {
 
 Step definition files are by default in: cypress/support/step_definitions. If you want to put them somewhere please use [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) format. For example, add to your package.json :
 
+*Note, you can not use cypress.json for configuration as the format of this file is not in control of this project.*
+
 ```javascript
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/"
@@ -115,7 +117,7 @@ Run your cypress the way you would normally do :) click on a .feature file on th
 
 ## Cucumber Expressions
 
-We use https://docs.cucumber.io/cucumber/cucumber-expressions/ to parse your .feature file, please use that document as your reference 
+We use https://docs.cucumber.io/cucumber/cucumber-expressions/ to parse your .feature file, please use that document as your reference
 
 ## Development
 
@@ -126,7 +128,7 @@ npm install
 
 Link the package:
 ```javascript
-npm link 
+npm link
 npm link cypress-cucumber-preprocessor
 ```
 
@@ -141,12 +143,12 @@ Please let me know if you find any issues or have suggestions for improvements.
 
 ## Custom Parameter Type Resolves
 
-Thanks to @Oltodo we can know use Custom Parameter Type Resolves. 
+Thanks to @Oltodo we can know use Custom Parameter Type Resolves.
 Here is an [example](cypress/support/step_definitions/customParameterTypes.js) with related [.feature file](cypress/integration/CustomParameterTypes.feature)
 
 ## WebStorm Support
 
-If you want WebStorm to resolve your steps, use the capitalized Given/When/Then function names (instead of the initial given/when/then). 
+If you want WebStorm to resolve your steps, use the capitalized Given/When/Then function names (instead of the initial given/when/then).
 Unfortunately, at this point WebStorm only understands regexp syntax:
  ```javascript
  Given(/^user navigated to the Start page?/, () => { });
@@ -180,7 +182,7 @@ module.exports = (on) => {
   options.browserifyOptions.plugin.unshift(['tsify']);
   // Or, if you need a custom tsconfig.json for your test files:
   // options.browserifyOptions.plugin.unshift(['tsify', {project: 'path/to/other/tsconfig.json'}]);
-  
+
   on("file:preprocessor", cucumber(options));
 };
 ```
@@ -199,10 +201,45 @@ declare const Given, When, Then;
 const {given, when, then} = require('cypress-cucumber-preprocessor/resolveStepDefinition')
 ```
 
+## VueJS configuration example
+
+When using with a project using @vue/cli and wanting to use the existing prefix of test/e2e, the following adjustments are necessary:
+
+in appRoot/package.json:
+```json
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "tests/e2e/support/step_definitions"
+}
+```
+
+in appRoot/test/e2e/plugins/index.js:
+
+```javascript
+const webpack = require('@cypress/webpack-preprocessor')
+const cucumber = require('cypress-cucumber-preprocessor').default
+
+module.exports = (on, config) => {
+  on('file:preprocessor', (file) => {
+    if (file.filePath.match(/\.(js|jsx)/g)) {
+      return webpack(config)(file)
+    } else {
+      return cucumber()(file)
+    }
+  })
+
+  return Object.assign({}, config, {
+    fixturesFolder: 'tests/e2e/fixtures',
+    integrationFolder: 'tests/e2e/features',
+    screenshotsFolder: 'tests/e2e/screenshots',
+    videosFolder: 'tests/e2e/videos',
+    supportFile: 'tests/e2e/support/index.js'
+})}
+```
+
 ## TODO
 
 Tags!
-(Maybe?) Option to customize mocha template ( #3 ) 
+(Maybe?) Option to customize mocha template ( #3 )
 
 ## Credit where it's due!
 
