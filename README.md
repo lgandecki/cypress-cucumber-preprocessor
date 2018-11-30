@@ -48,6 +48,42 @@ to make IDE/linter happy
 
 We had a pattern to import those explicitly, but for some reason it was messing up the watch mode on Linux :-( (#10)
 
+### Background section
+
+Adding a background section to your feature will enable you to run steps before every scenario. For example, we have a counter that needs to be reset before each scenario. We can create a given step for resetting the counter. 
+
+```javascript
+let counter = 0;
+
+given("counter has been reset", () => {
+  counter = 0;
+});
+
+when("counter is incremented", () => {
+  counter += 1;
+});
+
+then("counter equals {int}", value => {
+  expect(counter).to.equal(value);
+});
+```
+
+```
+Feature: Background Section
+  
+   Background:
+    Given counter has been reset
+
+   Scenario: Basic example #1
+     When counter is incremented
+     Then counter equals 1
+    
+   Scenario: Basic example #2
+     When counter is incremented
+     When counter is incremented
+     Then counter equals 2
+```
+
 ### Sharing context
 
 You can share context between step definitions using `cy.as()` alias.
