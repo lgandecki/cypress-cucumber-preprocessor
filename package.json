@@ -1,11 +1,12 @@
 {
   "name": "cypress-cucumber-preprocessor",
-  "version": "1.6.0",
+  "version": "0.0.0-development",
   "description": "Run gherkin-syntaxed specs with cypress.io",
   "main": "index.js",
   "scripts": {
     "test": "eslint . && jest && cypress run",
-    "fixStyle": "eslint . --fix"
+    "fixStyle": "eslint . --fix",
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "hooks": {
@@ -20,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheBrainFamily/cypress-cucumber-preprocessor.git"
+    "url": "https://github.com/TheBrainFamily/cypress-cucumber-preprocessor.git"
   },
   "keywords": [
     "cucumber",
@@ -58,7 +59,8 @@
     "jest": "^23.1.0",
     "husky": "^1.1.1",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.13.5"
+    "prettier": "^1.13.5",
+    "semantic-release": "^15.12.3"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/setupTestFramework.js"
