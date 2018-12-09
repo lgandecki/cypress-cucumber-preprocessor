@@ -100,6 +100,12 @@ The problem with the legacy structure is that everything is global. This is prob
 
 If you have a few tests the "oldschool" style is completely fine. But for a large enterprise-grade application, with hundreds or sometimes thousands of .feature files, the fact that everything is global becomes a maintainability nightmare. 
 
+We suggest to put: 
+```json
+  "ignoreTestFiles": "*.js"
+```
+in your cypress.json to have a clean view of your tests in the cypress dashbord, and also so cypress doesn't try to run your step definition files as tests in CI. 
+
 #### Oldschool/Legacy Cucumber style (please let us know if you decide to use it!)
 
 ##### Step Definition location configuration
