@@ -18,7 +18,19 @@ Feature: Being a plugin handling Scenario Outline
     Then I should get "<juice>"
 
     Examples:
-      | fruit      | juice               |
-      | apple      | apple juice         |
-      | pineapple  | pineapple juice     |
-      | strawberry | strawberry juice    |
+      | fruit      | juice            |
+      | apple      | apple juice      |
+      | pineapple  | pineapple juice  |
+      | strawberry | strawberry juice |
+
+  Scenario Outline: A calculation
+    When I enter <first> and <second>
+    Then I see following result table
+      | first   | second   | result
+      | <first> | <second> | <result>
+
+    Examples:
+      | first | second | result |
+      | 1     | 2      | 3      |
+      | 3     | 4      | 7      |
+      | 5     | 6      | 11     |
