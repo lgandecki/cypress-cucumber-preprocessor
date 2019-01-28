@@ -1,12 +1,10 @@
 {
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
-  "plugins": [
-    "cypress",
-    "prettier"
-  ],
+  "plugins": ["cypress", "prettier"],
   "env": {
     "browser": true,
-    "cypress/globals": true
+    "cypress/globals": true,
+    "jest": true
   },
   "rules": {
     "prettier/prettier": "error"
