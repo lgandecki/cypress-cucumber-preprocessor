@@ -26,8 +26,8 @@ Feature: Being a plugin handling Scenario Outline
   Scenario Outline: A calculation
     When I enter <first> and <second>
     Then I see following result table
-      | first   | second   | result
-      | <first> | <second> | <result>
+      | first   | second   | result   |
+      | <first> | <second> | <result> |
 
     Examples:
       | first | second | result |

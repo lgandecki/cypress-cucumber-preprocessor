@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "eslint . && jest && cypress run",
+    "test:debug": "jest && DEBUG=cypress:* cypress open\n",
     "fixStyle": "eslint . --fix",
     "semantic-release": "semantic-release"
   },

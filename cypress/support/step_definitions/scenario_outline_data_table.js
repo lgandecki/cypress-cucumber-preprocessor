@@ -8,8 +8,8 @@ when("I enter {int} and {int}", (a, b) => {
 
 then("I see following result table", dataTable => {
   dataTable.hashes().forEach(row => {
-    const { first, second, result } = row;
-    console.log(row);
-    expect(sum).to.equal({ first, second, result });
+    expect(sum.first).to.equal(parseInt(row.first, 10));
+    expect(sum.second).to.equal(parseInt(row.second, 10));
+    expect(sum.result).to.equal(parseInt(row.result, 10));
   });
 });
