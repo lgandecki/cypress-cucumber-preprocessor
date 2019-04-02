@@ -5,6 +5,8 @@ const {
   given,
   when,
   then,
+  and,
+  but,
   defineParameterType
 } = require("./lib/resolveStepDefinition");
 
@@ -12,8 +14,12 @@ module.exports = {
   given,
   when,
   then,
+  and,
+  but,
   Given: given,
   When: when,
   Then: then,
+  And: and,
+  But: but,
   defineParameterType
 };
