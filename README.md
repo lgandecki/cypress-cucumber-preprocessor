@@ -61,9 +61,9 @@ inside your package.json. (this will become the default option in a future versi
 
 Option | Default value | Description
 ------------ | ------------- | -------------
-commonPath | a common folder inside the step_definitions folder | Define the path to a folder containing all common step definitions of your tests
+commonPath | `cypress/integration/common` when `nonGlobalStepDefinitions` is true <br> `cypress/support/step_definitions` when `nonGlobalStepDefinitions` is false | Define the path to a folder containing all common step definitions of your tests
 nonGlobalStepDefinitions | true | If true use the Cypress Cucumber Preprocessor Style pattern for placing step definitions files. If false, we will use the "oldschool" (everything is global) Cucumber style
-step_definitions | | Path to the folder containing our step definitions
+step_definitions | `cypress/support/step_definitions` | Path to the folder containing our step definitions
 
 ###### Step definitions creation
 Then put your step definitions in cypress/integration with the folder name matching the .feature filename.
