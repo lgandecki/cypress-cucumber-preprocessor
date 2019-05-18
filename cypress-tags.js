@@ -47,7 +47,7 @@ paths.forEach(featurePath => {
 
 try {
   execFileSync(
-    `${__dirname}/node_modules/.bin/cypress`,
+    `${__dirname}/../.bin/cypress`,
     [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
     {
       stdio: [process.stdin, process.stdout, process.stderr]
