@@ -7,7 +7,8 @@ const {
   then,
   and,
   but,
-  defineParameterType
+  defineParameterType,
+  defineStep
 } = require("./lib/resolveStepDefinition");
 
 module.exports = {
@@ -21,5 +22,6 @@ module.exports = {
   Then: then,
   And: and,
   But: but,
-  defineParameterType
+  defineParameterType,
+  defineStep
 };
