@@ -4,7 +4,7 @@ Feature: Webstorm support
   step definitions so I can navigate from feature files to the corresponding
   step definition
 
-  Scenario: The pluging recognizes capitalized Given, When and Then
+  Scenario: The plugin recognizes capitalized Given, When and Then
     Given I am using the Cypress Cucumber plugin
     When I write my steps using caps
     Then Webstorm recognizes my 3 steps
