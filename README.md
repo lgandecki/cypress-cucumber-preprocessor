@@ -359,6 +359,13 @@ Then(`{word} is chosen`, choice => {})
 ```
  (See #56)
 
+## IntelliJ Support
+For those that use IntelliJ to navigate from a .feature file to step definition (intellisense), you can set a configuration flag to look for step definitions in the test root.
+```json
+"cypress-cucumber-preprocessor": {
+  "stepDefinitionsAtTestRoot": true
+}
+``` 
 
 ## TypeScript without Webpack
 
