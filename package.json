@@ -14,6 +14,7 @@
   },
   "husky": {
     "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "pre-commit": "lint-staged && jest"
     }
   },
@@ -53,7 +54,9 @@
     "through": "^2.3.8"
   },
   "devDependencies": {
+    "commitizen": "^4.0.3",
     "cypress": "^3.1.3",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-config-prettier": "^2.9.0",
@@ -68,5 +71,10 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/lib/setupTestFramework.js"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
