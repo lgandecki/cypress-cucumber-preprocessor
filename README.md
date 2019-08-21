@@ -333,6 +333,10 @@ Run tests:
 ```bash
 npm test
 ```
+### Note:
+This repo uses [commitizen](https://github.com/commitizen/cz-cli) to manage commits messages and [semantic-release](https://github.com/semantic-release/semantic-release) to use those commit messages to automatically release this package with proper release version.
+ 
+ If you are confused please ask questions  or/and read the documentation of these two fantastic tools! As far as the development goes, you should just do git commit from the command line, and commitizen will guide you through creating a proper commit message.
 
 ## Disclaimer
 
