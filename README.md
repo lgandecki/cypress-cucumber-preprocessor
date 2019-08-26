@@ -31,6 +31,8 @@ You can follow the documentation below, or if you prefer to hack on a working ex
   * [Output](#output)
 * [IDE support](#ide-support)
   * [Webstorm](#webstorm)
+  * [Intellij IDEA](#intellij-IDEA)
+  * [Visual Studio Code](#visual-Studio-Code)
 * [TypeScript Support](#typeScript-support)
 * [How to contribute](#how-to-contribute)
 * [Roadmap](#roadmap)
@@ -361,26 +363,21 @@ generate | `false` | Flag to output cucumber.json or not
 ## IDE support
 
 ### WebStorm
-If you want WebStorm to resolve your steps, use the capitalized `Given/When/Then` function names (instead of the initial given/when/then). 
-Unfortunately, at this point WebStorm only understands regexp syntax or a backtick syntax but without Cucumber Expressions :-(
+If you want WebStorm to resolve your steps, use the capitalized `Given/When/Then` function names (instead of the initial given/when/then).
 
-In other words, these work:
+Note, only WebStorm 2019.2 and later versions are able to [resolve steps located outside of a step_definitions folder](https://youtrack.jetbrains.com/issue/WEB-11505)
 
-```javascript
- Given(/^user navigated to the Start page?/, () => { });
-```
+### Intellij IDEA
+Intellij IDEA Community Edition does not support cucumber in javascript, but the Ultimate Edition can provide the same level support for step resolution as WebStorm.
 
-```javascript
-Given(`user navigated to the start page`, () => { });
-Then(/(.*?) is chosen/, choice => {})
-```
+To enable cucumber step resolution in Intellij IDEA Ulimate edition you will need to download and enable the JetBrains [Cucumber JS plugin](https://plugins.jetbrains.com/plugin/7418-cucumber-js/). In WebStorm this plugin is already bundled into the distribution.
 
-But this doesn't:
-```javascript
-Then(`{word} is chosen`, choice => {})
-```
+### Visual Studio Code
+To get vscode to resolve your steps, install the [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) extension from the marketplace.
 
-*See [#56](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/issues/56) for more details*
+You will also need to tell the extension the locations of your feature and step definition files [as described here](https://github.com/alexkrechik/VSCucumberAutoComplete#settings-example).
+
+Note, that unlike WebStorm which will correctly identify multiple implementations of matching steps, the vscode extension currently resolves to the first matching occurence it finds on its path.
 
 ## TypeScript Support
 
