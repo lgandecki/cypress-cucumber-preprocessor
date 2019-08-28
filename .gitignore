@@ -67,4 +67,5 @@ target
 #optional .vscode settings directory
 .vscode
 
-cypress-cucumber-example
+cypress-cucumber-example/
+cypress-cucumber-webpack-typescript-example/
