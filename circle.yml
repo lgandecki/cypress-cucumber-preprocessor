@@ -21,5 +21,8 @@ jobs:
           name: slow test run, for sanity
           command: npm run test:each
       - run:
+          name: Run on cypress-cucumber-example
+          command: bash ./.scripts/runOnExample.bash
+      - run:
           name: release
           command: npm run semantic-release || true
