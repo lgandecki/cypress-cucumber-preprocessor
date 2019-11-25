@@ -7,18 +7,27 @@ const { execFileSync } = require("child_process");
 
 const { shouldProceedCurrentStep } = require("./lib/tagsHelper");
 
-// TODO currently we only work with feature files in cypress/integration folder.
-// It should be easy to base this on the cypress.json configuration - we are happy to take a PR
-// here if you need this functionality!
-
-const paths = glob.sync("cypress/integration/**/*.feature");
-
-const featuresToRun = [];
-
 const debug = (message, ...rest) =>
   process.env.DEBUG
     ? console.log(`DEBUG: ${message}`, rest.length ? rest : "")
     : null;
+
+// TODO currently we only work with feature files in cypress/integration folder.
+// It should be easy to base this on the cypress.json configuration - we are happy to take a PR
+// here if you need this functionality!
+const defaultGlob = "cypress/integration/**/*.feature";
+
+const specArg = process.argv.slice(2).find(arg => arg.indexOf("GLOB=") === 0);
+
+const specGlob = specArg ? specArg.replace(/.*=/, "") : defaultGlob;
+
+if (specArg) {
+  debug("Found glob", specGlob);
+}
+
+const paths = glob.sync(specGlob);
+
+const featuresToRun = [];
 
 const found = process.argv.slice(2).find(arg => arg.indexOf("TAGS=") === 0);
 
