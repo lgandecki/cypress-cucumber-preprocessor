@@ -328,7 +328,14 @@ Example:
 
 Please note - we use our own cypress-tags wrapper to speed things up.
 For more details and examples please take a look to the [example repo](https://github.com/TheBrainFamily/cypress-cucumber-example).
- 
+
+### Limiting to a subset of feature files
+You can use a glob expression to select which feature files should be included.
+
+Example:
+```shell
+  ./node_modules/.bin/cypress-tags run -e GLOB='cypress/integration/**/*.feature'
+```
 
 ### Output
 The **cypress-cucumber-preprocessor** can generate a `cucumber.json` file output as it runs the features files. This is separate from, and in addition to, any Mocha reporter configured in Cypress.
