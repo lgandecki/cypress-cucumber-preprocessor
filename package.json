@@ -77,6 +77,14 @@
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/lib/testHelpers/setupTestFramework.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "<rootDir>/lib/*.test.js"
     ]
   },
   "config": {
