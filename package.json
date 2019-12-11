@@ -55,7 +55,6 @@
     "glob": "^7.1.2",
     "js-string-escape": "^1.0.1",
     "minimist": "^1.2.0",
-    "ps-node": "^0.1.6",
     "through": "^2.3.8"
   },
   "devDependencies": {

@@ -56,7 +56,7 @@ Add it to your plugins:
 const cucumber = require('cypress-cucumber-preprocessor').default
 
 module.exports = (on, config) => {
-  on('file:preprocessor', cucumber())
+  on('file:preprocessor', cucumber(config))
 }
 ```
 
@@ -399,14 +399,14 @@ If you want to use TypeScript, add this to your plugins/index.js:
 const cucumber = require("cypress-cucumber-preprocessor").default;
 const browserify = require("@cypress/browserify-preprocessor");
 
-module.exports = (on) => {
+module.exports = (on, config) => {
   const options = browserify.defaultOptions;
 
   options.browserifyOptions.plugin.unshift(['tsify']);
   // Or, if you need a custom tsconfig.json for your test files:
   // options.browserifyOptions.plugin.unshift(['tsify', {project: 'path/to/other/tsconfig.json'}]);
   
-  on("file:preprocessor", cucumber(options));
+  on("file:preprocessor", cucumber(config, options));
 };
 ```
 
