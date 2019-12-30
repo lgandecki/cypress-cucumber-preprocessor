@@ -55,15 +55,18 @@ paths.forEach(featurePath => {
 });
 
 try {
-  execFileSync(
-    process.platform === "win32"
-      ? `${__dirname}/../.bin/cypress.cmd`
-      : `${__dirname}/../.bin/cypress`,
-    [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
-    {
-      stdio: [process.stdin, process.stdout, process.stderr]
-    }
-  );
+  if (featuresToRun.length || envTags === "") {
+    execFileSync(
+      `${__dirname}/../.bin/cypress`,
+      [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
+      {
+        stdio: [process.stdin, process.stdout, process.stderr]
+      }
+    );
+  } else {
+    console.log("No matching tags found");
+    process.exit(0);
+  }
 } catch (e) {
   debug("Error while running cypress (or just a test failure)", e);
   process.exit(1);
