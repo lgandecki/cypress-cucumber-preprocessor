@@ -18,7 +18,7 @@ You can follow the documentation below, or if you prefer to hack on a working ex
   * [Step definitions](#step-definitions)
     * [Step definitions creation](#step-definitions-creation)
     * [Reusable step definitions](#reusable-step-definitions)
-* [How to write tests](#excluding-tests)
+* [How to write tests](#how-to-write-tests)
   * [Cucumber Expressions](#cucumber-expressions)
   * [Given/When/Then functions](#cucumber-functions)
   * [Custom Parameter Type Resolves](#custom-parameter-type-resolves)
