@@ -38,6 +38,11 @@ paths.forEach(featurePath => {
   const spec = `${fs.readFileSync(featurePath)}`;
   const parsedFeature = new Parser().parse(spec);
 
+  if (!parsedFeature.feature) {
+    debug(`Feature: ${featurePath} is empty`);
+    return;
+  }
+
   const featureTags = parsedFeature.feature.tags;
   const featureShouldRun = shouldProceedCurrentStep(featureTags, envTags);
   const taggedScenarioShouldRun = parsedFeature.feature.children.some(
