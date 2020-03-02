@@ -59,12 +59,20 @@ paths.forEach(featurePath => {
   }
 });
 
+function getOsSpecificExecutable(command) {
+  return process.platform === "win32" ? `${command}.cmd` : command;
+}
+
+function getCypressExecutable() {
+  const command = getOsSpecificExecutable(`${__dirname}/../.bin/cypress`);
+  // fallback to the globally installed cypress instead
+  return fs.existsSync(command) ? command : getOsSpecificExecutable("cypress");
+}
+
 try {
   if (featuresToRun.length || envTags === "") {
     execFileSync(
-      process.platform === "win32"
-        ? `cypress.cmd`
-        : `${__dirname}/../.bin/cypress`,
+      getCypressExecutable(),
       [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
       {
         stdio: [process.stdin, process.stdout, process.stderr]
