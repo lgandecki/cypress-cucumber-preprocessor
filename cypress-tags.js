@@ -31,7 +31,7 @@ const featuresToRun = [];
 
 const found = process.argv.slice(2).find(arg => arg.indexOf("TAGS=") === 0);
 
-const envTags = found.replace(/.*=/, "");
+const envTags = found ? found.replace(/.*=/, "") : "";
 debug("Found tag expression", envTags);
 
 paths.forEach(featurePath => {
@@ -58,7 +58,7 @@ try {
   if (featuresToRun.length || envTags === "") {
     execFileSync(
       process.platform === "win32"
-        ? `${__dirname}/../.bin/cypress.cmd`
+        ? `cypress.cmd`
         : `${__dirname}/../.bin/cypress`,
       [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
       {
