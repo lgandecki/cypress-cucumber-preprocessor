@@ -71,3 +71,7 @@ Then("Flag should be set by untagged After", () => {
 Then("Flag should be set by tagged After", () => {
   expect(flagSetByTaggedAfter).to.equal(true);
 });
+
+Then("An error happens", () => {
+  expect(true).to.equal(false);
+});
