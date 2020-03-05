@@ -30,3 +30,22 @@ Scenario: With multiple tags
     Given I executed empty step
     Then Tagged Before was called twice
     And Untagged Before was called once
+
+# After is tested in following scenario by verifying that the After ran at the end of the previous one
+# Even though the previous one failed - commented because can't have tests that fail in the suite
+Scenario: After runs after test failure part 1
+    Given I executed empty step
+    # And An error happens
+    And I executed empty step
+
+Scenario: After runs after test failure part 2
+    Then Flag should be set by untagged After
+
+# After is tested in following scenario by verifying that the After ran at the end of the previous one
+# Even though the previous one failed in the Before block - commented because can't have tests that fail in the suite
+#@errorInBefore
+Scenario: After runs after Before failure part 1
+    Given I executed empty step
+
+Scenario: After runs after Before failure part 2
+    Then Flag should be set by untagged After

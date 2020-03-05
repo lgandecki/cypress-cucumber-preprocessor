@@ -29,6 +29,10 @@ Before({ tags: "@willNeverRun" }, () => {
   throw new Error("XXX: before hook unexpectedly called.");
 });
 
+Before({ tags: "@errorInBefore" }, () => {
+  throw new Error("Before hook exception.");
+});
+
 After({ tags: "@willNeverRun" }, () => {
   throw new Error("XXX: after hook unexpectedly called.");
 });
