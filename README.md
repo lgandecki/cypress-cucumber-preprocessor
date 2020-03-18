@@ -28,6 +28,7 @@ You can follow the documentation below, or if you prefer to hack on a working ex
   * [Smart tagging](#smart-tagging)
 * [How to run the tests](#excluding-tests)
   * [Running tagged tests](#running-tagged-tests)
+  * [Ignoring specific scenarios using tags when using test runner](#ignoring-tagged-tests)
   * [Output](#output)
 * [IDE support](#ide-support)
   * [Webstorm](#webstorm)
@@ -328,6 +329,25 @@ Example:
 
 Please note - we use our own cypress-tags wrapper to speed things up.
 For more details and examples please take a look to the [example repo](https://github.com/TheBrainFamily/cypress-cucumber-example).
+
+### Ignoring specific scenarios using tags when using test runner
+You can also use tags to skip or ignore specific tests/scenarios when running cypress test runner (where you don't have the abilitiy to pass parameters like in the examples above for the execution)
+
+The trick consists in adding the "env" property with the "TAGS" subproperty in the cypress.json configuration file. It would look something like this:
+
+```javascript
+{
+    "env": {
+        "TAGS": "not @ignore"
+    },
+    //rest of configuration options
+    "baseUrl": "yourBaseUrl",       
+    "ignoreTestFiles": "*.js",
+    //etc
+}
+```
+
+Then, any scenarios tagged with @ignore will be skipped with running the tests using the cypress test runner
 
 ### Limiting to a subset of feature files
 You can use a glob expression to select which feature files should be included.
