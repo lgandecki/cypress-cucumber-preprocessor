@@ -28,7 +28,7 @@ You can follow the documentation below, or if you prefer to hack on a working ex
   * [Smart tagging](#smart-tagging)
 * [How to run the tests](#excluding-tests)
   * [Running tagged tests](#running-tagged-tests)
-  * [Ignoring specific scenarios using tags when executing test runner](#ignoring-tagged-tests)
+  * [Ignoring specific scenarios using tags when executing test runner](#ignoring-specific-scenarios-using-tags-when-executing-test-runner)
   * [Output](#output)
 * [IDE support](#ide-support)
   * [Webstorm](#webstorm)
