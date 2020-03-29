@@ -15,13 +15,13 @@ const debug = (message, ...rest) =>
 function parseArgsOrDefault(argPrefix, defaultValue) {
   const matchedArg = process.argv
     .slice(2)
-    .find(arg => arg.indexOf(argPrefix) !== -1);
+    .find(arg => arg.includes(`${argPrefix}=`));
 
-  // Cypress reuires env vars to be passed as comma separated list
+  // Cypress requires env vars to be passed as comma separated list
   // otherwise it only accepts the last provided variable,
   // the way we replace here accomodates for that.
   const argValue = matchedArg
-    ? matchedArg.replace(new RegExp(`.*${argPrefix}`), "").replace(/,.*/, "")
+    ? matchedArg.replace(new RegExp(`.*${argPrefix}=`), "").replace(/,.*/, "")
     : "";
 
   return argValue !== "" ? argValue : defaultValue;
@@ -32,9 +32,9 @@ function parseArgsOrDefault(argPrefix, defaultValue) {
 // here if you need this functionality!
 const defaultGlob = "cypress/integration/**/*.feature";
 
-const specGlob = parseArgsOrDefault("GLOB=", defaultGlob);
+const specGlob = parseArgsOrDefault("GLOB", defaultGlob);
 debug("Found glob", specGlob);
-const envTags = parseArgsOrDefault("TAGS=", "");
+const envTags = parseArgsOrDefault("TAGS", "");
 debug("Found tag expression", envTags);
 
 const paths = glob.sync(specGlob);
