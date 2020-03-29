@@ -12,27 +12,34 @@ const debug = (message, ...rest) =>
     ? console.log(`DEBUG: ${message}`, rest.length ? rest : "")
     : null;
 
+function parseArgsOrDefault(argPrefix, defaultValue) {
+  const matchedArg = process.argv
+    .slice(2)
+    .find(arg => arg.indexOf(argPrefix) === 0);
+
+  // Cypress reuires env vars to be passed as comma separated list
+  // otherwise it only accepts the last provided variable,
+  // the way we replace here accomodates for that.
+  const argValue = matchedArg
+    ? matchedArg.replace(new RegExp(`.*${argPrefix}`), "").replace(/,.*/, "")
+    : "";
+
+  return argValue !== "" ? argValue : defaultValue;
+}
+
 // TODO currently we only work with feature files in cypress/integration folder.
 // It should be easy to base this on the cypress.json configuration - we are happy to take a PR
 // here if you need this functionality!
 const defaultGlob = "cypress/integration/**/*.feature";
 
-const specArg = process.argv.slice(2).find(arg => arg.indexOf("GLOB=") === 0);
-
-const specGlob = specArg ? specArg.replace(/.*=/, "") : defaultGlob;
-
-if (specArg) {
-  debug("Found glob", specGlob);
-}
+const specGlob = parseArgsOrDefault("GLOB=", defaultGlob);
+debug("Found glob", specGlob);
+const envTags = parseArgsOrDefault("TAGS=", "");
+debug("Found tag expression", envTags);
 
 const paths = glob.sync(specGlob);
 
 const featuresToRun = [];
-
-const found = process.argv.slice(2).find(arg => arg.indexOf("TAGS=") === 0);
-
-const envTags = found ? found.replace(/.*=/, "") : "";
-debug("Found tag expression", envTags);
 
 paths.forEach(featurePath => {
   const spec = `${fs.readFileSync(featurePath)}`;
