@@ -15,7 +15,7 @@ const debug = (message, ...rest) =>
 function parseArgsOrDefault(argPrefix, defaultValue) {
   const matchedArg = process.argv
     .slice(2)
-    .find(arg => arg.indexOf(argPrefix) === 0);
+    .find(arg => arg.indexOf(argPrefix) !== -1);
 
   // Cypress reuires env vars to be passed as comma separated list
   // otherwise it only accepts the last provided variable,
