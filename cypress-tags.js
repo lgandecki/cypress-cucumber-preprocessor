@@ -34,6 +34,11 @@ const found = process.argv.slice(2).find(arg => arg.indexOf("TAGS=") === 0);
 const envTags = found ? found.replace(/.*=/, "") : "";
 debug("Found tag expression", envTags);
 
+// useful when using cypress/included dockerimage
+const useGloballyInstalledCypress = process.argv.includes(
+  "GLOBAL_CYPRESS=true"
+);
+
 paths.forEach(featurePath => {
   const spec = `${fs.readFileSync(featurePath)}`;
   const parsedFeature = new Parser().parse(spec);
@@ -61,10 +66,16 @@ paths.forEach(featurePath => {
 
 try {
   if (featuresToRun.length || envTags === "") {
-    execFileSync(
+    const systemSpecificCommand =
       process.platform === "win32"
         ? `cypress.cmd`
-        : `${__dirname}/../.bin/cypress`,
+        : `${__dirname}/../.bin/cypress`;
+    const command = useGloballyInstalledCypress
+      ? "cypress"
+      : systemSpecificCommand;
+
+    execFileSync(
+      command,
       [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
       {
         stdio: [process.stdin, process.stdout, process.stderr]

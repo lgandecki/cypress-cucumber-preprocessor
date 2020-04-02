@@ -327,6 +327,12 @@ Example:
   ./node_modules/.bin/cypress-tags run -e TAGS='not @foo and (@bar or @zap)'
 ```
 
+You can also pass the option GLOBAL_CYPRESS=true to use the globaly installed cypress version.
+Example
+```shell
+  ./node_modules/.bin/cypress-tags run -e TAGS='not @foo and (@bar or @zap)' -e GLOBAL_CYPRESS=true
+```
+
 Please note - we use our own cypress-tags wrapper to speed things up.
 For more details and examples please take a look to the [example repo](https://github.com/TheBrainFamily/cypress-cucumber-example).
 
