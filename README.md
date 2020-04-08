@@ -328,6 +328,7 @@ Example:
 ```
 
 Please note - we use our own cypress-tags wrapper to speed things up.
+This wrapper calls the cypress executable from local modules and if not found it falls back to the globally installed one.
 For more details and examples please take a look to the [example repo](https://github.com/TheBrainFamily/cypress-cucumber-example).
 
 ### Ignoring specific scenarios using tags when executing test runner
