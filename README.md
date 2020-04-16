@@ -409,6 +409,14 @@ Note, that unlike WebStorm which will correctly identify multiple implementation
 
 ## TypeScript Support
 
+### Install
+
+Install the plug-in type definitions:
+
+```shell
+npm install --save-dev @types/cypress-cucumber-preprocessor
+```
+
 ### With Webpack
 You can also use a Webpack loader to process feature files (TypeScript supported). To see how it is done please take 
 a look here: [cypress-cucumber-webpack-typescript-example](https://github.com/TheBrainFamily/cypress-cucumber-webpack-typescript-example)
