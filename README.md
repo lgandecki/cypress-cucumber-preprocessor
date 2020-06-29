@@ -21,6 +21,7 @@ You can follow the documentation below, or if you prefer to hack on a working ex
 * [How to write tests](#how-to-write-tests)
   * [Cucumber Expressions](#cucumber-expressions)
   * [Given/When/Then functions](#cucumber-functions)
+  * [Data table parameters](#data-table-parameters)
   * [Custom Parameter Type Resolves](#custom-parameter-type-resolves)
   * [Before and After hooks](#before-and-after-hooks)
   * [Background section](#background-section)
@@ -180,6 +181,10 @@ Since Given/When/Then are on global scope please use
 /* global Given, When, Then */
 ```
 to make IDE/linter happy or import them directly as shown in the above examples.
+
+### Data table parameters
+
+To create steps that use gherkin data tables, the step definition needs to take an object and handle it like in these examples: [Example Feature](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/blob/master/cypress/integration/DataTable.feature), [Example Step Definition](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/blob/master/cypress/support/step_definitions/dataTable.js).
 
 ### Custom Parameter Type Resolves
 
