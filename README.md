@@ -423,6 +423,27 @@ Install the plug-in type definitions:
 npm install --save-dev @types/cypress-cucumber-preprocessor
 ```
 
+### With out-of-the-box support
+
+As of [Cypress
+v4.4.0](https://github.com/cypress-io/cypress/releases/tag/v4.4.0), TypeScript
+is supported out-of-the-box. To use it, add this to your `plugins/index.js`:
+
+```javascript
+const browserify = require('@cypress/browserify-preprocessor');
+const cucumber = require('cypress-cucumber-preprocessor').default;
+const resolve = require('resolve');
+
+module.exports = (on, config) => {
+  const options = {
+    ...browserify.defaultOptions,
+    typescript: resolve.sync('typescript', { baseDir: config.projectRoot }),
+  };
+
+  on('file:preprocessor', cucumber(options));
+};
+```
+
 ### With Webpack
 You can also use a Webpack loader to process feature files (TypeScript supported). To see how it is done please take 
 a look here: [cypress-cucumber-webpack-typescript-example](https://github.com/TheBrainFamily/cypress-cucumber-webpack-typescript-example)
