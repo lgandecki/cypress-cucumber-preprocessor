@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/TheBrainFamily/cypress-cucumber-preprocessor#readme",
   "dependencies": {
-    "@cypress/browserify-preprocessor": "^2.1.1",
+    "@cypress/browserify-preprocessor": "^3.0.1",
     "chai": "^4.1.2",
     "chokidar": "^2.0.4",
     "cosmiconfig": "^4.0.0",
