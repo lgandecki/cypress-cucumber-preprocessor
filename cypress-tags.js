@@ -21,7 +21,7 @@ function parseArgsOrDefault(argPrefix, defaultValue) {
   // otherwise it only accepts the last provided variable,
   // the way we replace here accomodates for that.
   const argValue = matchedArg
-    ? matchedArg.replace(new RegExp(`.*${argPrefix}=`), "").replace(/,.*/, "")
+    ? matchedArg.replace(new RegExp(`.*${argPrefix}=`), "").replace(/,*/, "")
     : "";
 
   return argValue !== "" ? argValue : defaultValue;
