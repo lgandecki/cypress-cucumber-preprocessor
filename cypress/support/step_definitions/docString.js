@@ -1,4 +1,4 @@
-/* global then, when */
+/* global Then, when */
 
 let code = "";
 // eslint-disable-next-line prefer-const
@@ -8,7 +8,7 @@ when("I use DocString for code like this:", dataString => {
   code = dataString;
 });
 
-then("I ran it and verify that it executes it", () => {
+Then("I ran it and verify that it executes it", () => {
   // eslint-disable-next-line no-eval
   eval(code);
   expect(variableToVerify).to.equal("hello world");
@@ -19,6 +19,6 @@ when("I use DocString for freemarker code like this", dataString => {
   freemarkerSnippet = dataString;
 });
 
-then("I can interpret it as a string", () => {
+Then("I can interpret it as a string", () => {
   expect(freemarkerSnippet).to.be.a("string");
 });

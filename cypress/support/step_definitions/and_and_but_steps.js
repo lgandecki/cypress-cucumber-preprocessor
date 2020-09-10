@@ -1,4 +1,4 @@
-/* global then, when, and, but */
+/* global Then, when, and, but */
 /* eslint-env mocha */
 
 let stepCounter = 0;
@@ -12,7 +12,7 @@ and("Something else", () => {
   stepCounter += 2;
 });
 
-then("I happily work", () => {
+Then("I happily work", () => {
   expect(stepCounter).to.equal(3);
 });
 
@@ -24,7 +24,7 @@ and("it is sunday", () => {
   step2Counter += 2;
 });
 
-then("I stream on twitch", () => {
+Then("I stream on twitch", () => {
   expect(step2Counter).to.equal(3);
   step2Counter += 1;
 });

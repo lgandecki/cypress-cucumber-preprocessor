@@ -1,4 +1,4 @@
-/* global given, then */
+/* global given, Then */
 
 let isPresentInTagsEnv;
 const cypressEnvTags = Cypress.env("TAGS");
@@ -7,7 +7,7 @@ given(/'(.+)' is in current TAGS environmental variable/, envTagsString => {
   isPresentInTagsEnv = RegExp(envTagsString).test(cypressEnvTags);
 });
 
-then(/this should (not )?run/, shouldNotRun => {
+Then(/this should (not )?run/, shouldNotRun => {
   if (typeof cypressEnvTags !== "undefined") {
     expect(!shouldNotRun).to.equal(isPresentInTagsEnv);
   }

@@ -1,4 +1,4 @@
-/* global given, then */
+/* global given, Then */
 
 const {
   shouldProceedCurrentStep
@@ -10,14 +10,14 @@ given(/my cypress environment variable TAGS is '(.+)'/, envTagsString => {
   parsedTags = envTagsString;
 });
 
-then(/the cypress runner should not break/, () => {
+Then(/the cypress runner should not break/, () => {
   const shouldNeverThrow = () => {
     shouldProceedCurrentStep([{ name: "@test-tag" }], parsedTags);
   };
   expect(shouldNeverThrow).to.not.throw();
 });
 
-then(
+Then(
   /tests tagged '(.+)' should (not )?proceed/,
   (tags, shouldProceed = false) => {
     const tagsArray = tags.split(" ").map(tag => ({ name: tag }));

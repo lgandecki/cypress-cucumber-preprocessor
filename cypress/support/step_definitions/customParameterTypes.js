@@ -1,4 +1,4 @@
-/* global defineParameterType, then, when */
+/* global defineParameterType, Then, when */
 
 const notes = ["A", "B", "C", "D", "E", "F", "G"];
 
@@ -21,6 +21,6 @@ when("I press the {ordinal} key of my piano", number => {
   keySound = notes[(number - 1) % 7];
 });
 
-then("I should hear a(n) {note} sound", note => {
+Then("I should hear a(n) {note} sound", note => {
   expect(note).to.equal(keySound);
 });

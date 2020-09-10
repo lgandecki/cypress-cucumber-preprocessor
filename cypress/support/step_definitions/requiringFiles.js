@@ -1,4 +1,4 @@
-/* global given, then */
+/* global given, Then */
 /* eslint-env mocha */
 
 let dataToBeLoaded;
@@ -7,6 +7,6 @@ given("I require a file", () => {
   dataToBeLoaded = require("./requiringFilesData");
 });
 
-then("I can access it's data", () => {
+Then("I can access it's data", () => {
   expect(dataToBeLoaded.IAmImported).to.equal(true);
 });

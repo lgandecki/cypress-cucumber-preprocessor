@@ -1,4 +1,4 @@
-/* global then, when, given */
+/* global Then, when, given */
 
 const fruitToJuice = {
   apple: "apple juice",
@@ -17,6 +17,6 @@ when("I switch it on", () => {
   expect(true).to.equal(true);
 });
 
-then("I should get {string}", resultJuice => {
+Then("I should get {string}", resultJuice => {
   expect(resultJuice).to.equal(juice);
 });
