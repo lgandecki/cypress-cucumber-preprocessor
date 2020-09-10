@@ -4,7 +4,7 @@
 const {
   given,
   when,
-  then,
+  Then,
   and,
   but,
   Before,
@@ -16,12 +16,12 @@ const {
 module.exports = {
   given,
   when,
-  then,
+  then: Then,
   and,
   but,
   Given: given,
   When: when,
-  Then: then,
+  Then,
   And: and,
   But: but,
   Before,

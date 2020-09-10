@@ -2,7 +2,7 @@
 const {
   given,
   when,
-  then,
+  Then,
   and,
   but,
   defineParameterType
@@ -15,10 +15,10 @@ console.warn(
 module.exports = {
   given,
   when,
-  then,
+  then: Then,
   Given: given,
   When: when,
-  Then: then,
+  Then,
   And: and,
   But: but,
   defineParameterType
