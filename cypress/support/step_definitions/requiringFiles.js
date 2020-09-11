@@ -1,8 +1,8 @@
-/* global given, Then */
+/* global Given, Then */
 /* eslint-env mocha */
 
 let dataToBeLoaded;
-given("I require a file", () => {
+Given("I require a file", () => {
   // eslint-disable-next-line global-require
   dataToBeLoaded = require("./requiringFilesData");
 });

@@ -1,11 +1,11 @@
 // reexporting here for backward compability
 const {
-  given,
-  when,
+  Given,
+  When,
   Then,
-  and,
-  but,
-  defineParameterType
+  And,
+  But,
+  defineParameterType,
 } = require("./lib/resolveStepDefinition");
 
 console.warn(
@@ -13,13 +13,13 @@ console.warn(
 );
 
 module.exports = {
-  given,
-  when,
-  then: Then,
-  Given: given,
-  When: when,
+  Given,
+  When,
   Then,
-  And: and,
-  But: but,
-  defineParameterType
+  Given,
+  When,
+  Then,
+  And,
+  But,
+  defineParameterType,
 };

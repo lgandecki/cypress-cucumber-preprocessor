@@ -1,10 +1,10 @@
-/* global defineParameterType, Then, when */
+/* global defineParameterType, Then, When */
 
 const notes = ["A", "B", "C", "D", "E", "F", "G"];
 
 defineParameterType({
   name: "note",
-  regexp: new RegExp(notes.join("|"))
+  regexp: new RegExp(notes.join("|")),
 });
 
 defineParameterType({
@@ -12,15 +12,15 @@ defineParameterType({
   regexp: /(\d+)(?:st|nd|rd|th)/,
   transformer(s) {
     return parseInt(s, 10);
-  }
+  },
 });
 
 let keySound = null;
 
-when("I press the {ordinal} key of my piano", number => {
+When("I press the {ordinal} key of my piano", (number) => {
   keySound = notes[(number - 1) % 7];
 });
 
-Then("I should hear a(n) {note} sound", note => {
+Then("I should hear a(n) {note} sound", (note) => {
   expect(note).to.equal(keySound);
 });

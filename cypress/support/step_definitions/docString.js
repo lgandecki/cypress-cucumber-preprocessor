@@ -1,10 +1,10 @@
-/* global Then, when */
+/* global Then, When */
 
 let code = "";
 // eslint-disable-next-line prefer-const
 let variableToVerify = ""; // we are assigning this through eval
 
-when("I use DocString for code like this:", dataString => {
+When("I use DocString for code like this:", (dataString) => {
   code = dataString;
 });
 
@@ -15,7 +15,7 @@ Then("I ran it and verify that it executes it", () => {
 });
 
 let freemarkerSnippet = "";
-when("I use DocString for freemarker code like this", dataString => {
+When("I use DocString for freemarker code like this", (dataString) => {
   freemarkerSnippet = dataString;
 });
 

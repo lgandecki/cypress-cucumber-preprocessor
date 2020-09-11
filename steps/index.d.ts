@@ -7,59 +7,6 @@ export interface Transform {
   typeName?: string; // deprecated
 }
 
-export function given(
-  expression: RegExp | string,
-  config: { timeout?: number },
-  implementation: (...args: any[]) => void
-): void;
-
-export function given(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-
-export function when(
-  expression: RegExp | string,
-  config: { timeout?: number },
-  implementation: (...args: any[]) => void
-): void;
-
-export function when(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-
-export function then(
-  expression: RegExp | string,
-  config: { timeout?: number },
-  implementation: (...args: any[]) => void
-): void;
-
-export function then(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-
-export function and(
-  expression: RegExp | string,
-  config: { timeout?: number },
-  implementation: (...args: any[]) => void
-): void;
-export function and(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-
-export function but(
-  expression: RegExp | string,
-  config: { timeout?: number },
-  implementation: (...args: any[]) => void
-): void;
-export function but(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-
 export function defineStep(
   expression: RegExp | string,
   implementation: (...args: any[]) => void
@@ -71,22 +18,6 @@ export function Given(
   expression: RegExp | string,
   implementation: (...args: any[]) => void
 ): void;
-export function When(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-export function Then(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-export function And(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
-export function But(
-  expression: RegExp | string,
-  implementation: (...args: any[]) => void
-): void;
 export function Given(
   expression: RegExp | string,
   config: { timeout?: number },
@@ -94,7 +25,15 @@ export function Given(
 ): void;
 export function When(
   expression: RegExp | string,
+  implementation: (...args: any[]) => void
+): void;
+export function When(
+  expression: RegExp | string,
   config: { timeout?: number },
+  implementation: (...args: any[]) => void
+): void;
+export function Then(
+  expression: RegExp | string,
   implementation: (...args: any[]) => void
 ): void;
 export function Then(
@@ -104,7 +43,15 @@ export function Then(
 ): void;
 export function And(
   expression: RegExp | string,
+  implementation: (...args: any[]) => void
+): void;
+export function And(
+  expression: RegExp | string,
   config: { timeout?: number },
+  implementation: (...args: any[]) => void
+): void;
+export function But(
+  expression: RegExp | string,
   implementation: (...args: any[]) => void
 ): void;
 export function But(

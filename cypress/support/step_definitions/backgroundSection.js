@@ -1,11 +1,11 @@
-/* global given, Then */
+/* global Given, Then */
 
 let counter = 0;
 
-given("counter is incremented", () => {
+Given("counter is incremented", () => {
   counter += 1;
 });
 
-Then("counter equals {int}", value => {
+Then("counter equals {int}", (value) => {
   expect(counter).to.equal(value);
 });

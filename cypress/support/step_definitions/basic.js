@@ -1,10 +1,10 @@
-/* global Then, when, given */
+/* global Then, When, Given */
 
-given("a feature and a matching step definition file", () => {
+Given("a feature and a matching step definition file", () => {
   expect(true).to.equal(true);
 });
 
-when("I run cypress tests", () => {
+When("I run cypress tests", () => {
   expect(true).to.equal(true);
 });
 

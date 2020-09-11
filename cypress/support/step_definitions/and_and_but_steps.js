@@ -1,14 +1,14 @@
-/* global Then, when, and, but */
+/* global Then, When, And, But */
 /* eslint-env mocha */
 
 let stepCounter = 0;
 let step2Counter = 0;
 
-when("I do something", () => {
+When("I do something", () => {
   stepCounter += 1;
 });
 
-and("Something else", () => {
+And("Something else", () => {
   stepCounter += 2;
 });
 
@@ -16,11 +16,11 @@ Then("I happily work", () => {
   expect(stepCounter).to.equal(3);
 });
 
-when("I dont do something", () => {
+When("I dont do something", () => {
   step2Counter += 1;
 });
 
-and("it is sunday", () => {
+And("it is sunday", () => {
   step2Counter += 2;
 });
 
@@ -29,6 +29,6 @@ Then("I stream on twitch", () => {
   step2Counter += 1;
 });
 
-but("only when not tired", () => {
+But("only when not tired", () => {
   expect(step2Counter).to.equal(4);
 });
