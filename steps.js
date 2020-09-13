@@ -2,11 +2,11 @@
 // We will remove that one soon and leave only this one in a future version.
 
 const {
-  given,
-  when,
+  Given,
+  When,
   Then,
-  and,
-  but,
+  And,
+  But,
   Before,
   After,
   defineParameterType,
@@ -14,16 +14,11 @@ const {
 } = require("./lib/resolveStepDefinition");
 
 module.exports = {
-  given,
-  when,
-  then: Then,
-  and,
-  but,
-  Given: given,
-  When: when,
   Then,
-  And: and,
-  But: but,
+  And,
+  But,
+  Given,
+  When,
   Before,
   After,
   defineParameterType,
