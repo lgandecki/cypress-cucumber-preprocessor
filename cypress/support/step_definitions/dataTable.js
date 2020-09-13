@@ -20,6 +20,7 @@ Then("I verify the datatable result is equal to {int}", result => {
 });
 
 Given("I have a table with some escaped characters in it", dataTable => {
+  // eslint-disable-next-line no-console
   console.log(dataTable);
   // we don't need to do anything, just make sure it doesn't break
 });

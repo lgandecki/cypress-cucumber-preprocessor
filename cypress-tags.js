@@ -9,7 +9,8 @@ const { shouldProceedCurrentStep } = require("./lib/tagsHelper");
 
 const debug = (message, ...rest) =>
   process.env.DEBUG
-    ? console.log(`DEBUG: ${message}`, rest.length ? rest : "")
+    ? // eslint-disable-next-line no-console
+      console.log(`DEBUG: ${message}`, rest.length ? rest : "")
     : null;
 
 function parseArgsOrDefault(argPrefix, defaultValue) {
@@ -86,6 +87,7 @@ try {
       }
     );
   } else {
+    // eslint-disable-next-line no-console
     console.log("No matching tags found");
     process.exit(0);
   }
