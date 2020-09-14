@@ -63,3 +63,5 @@ typings/
 #### NPM IGNORE SPECIFICS
 cypress/
 cypress.json
+cypress-cucumber-webpack-typescript-example/
+cypress-cucumber-example/
