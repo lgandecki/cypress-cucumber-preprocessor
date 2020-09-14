@@ -4,7 +4,9 @@ let code = "";
 // eslint-disable-next-line prefer-const
 let variableToVerify = ""; // we are assigning this through eval
 
-When("I use DocString for code like this:", dataString => {
+console.log(window);
+
+When("I use DocString for code like this:", (dataString) => {
   code = dataString;
 });
 
@@ -15,7 +17,7 @@ Then("I ran it and verify that it executes it", () => {
 });
 
 let freemarkerSnippet = "";
-When("I use DocString for freemarker code like this", dataString => {
+When("I use DocString for freemarker code like this", (dataString) => {
   freemarkerSnippet = dataString;
 });
 

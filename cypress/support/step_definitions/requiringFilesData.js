@@ -1,3 +1,3 @@
 module.exports = {
-  IAmImported: true
+  IAmImported: true,
 };

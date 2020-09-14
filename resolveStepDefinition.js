@@ -5,7 +5,7 @@ const {
   Then,
   And,
   But,
-  defineParameterType
+  defineParameterType,
 } = require("./lib/resolveStepDefinition");
 
 // eslint-disable-next-line no-console
@@ -19,5 +19,5 @@ module.exports = {
   Then,
   And,
   But,
-  defineParameterType
+  defineParameterType,
 };

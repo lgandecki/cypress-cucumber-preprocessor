@@ -9,11 +9,11 @@ When(/^I write my steps using caps$/, () => {
   counter += 1;
 });
 
-Then(/^Webstorm recognizes my (\d+) steps$/, value => {
+Then(/^Webstorm recognizes my (\d+) steps$/, (value) => {
   counter += 1;
   expect(counter).to.equal(value);
 });
 
-Then(/^Webstorm recognizes "(.*?)"$/, value => {
+Then(/^Webstorm recognizes "(.*?)"$/, (value) => {
   expect("words").to.equal(value);
 });

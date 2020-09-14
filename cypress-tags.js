@@ -16,7 +16,7 @@ const debug = (message, ...rest) =>
 function parseArgsOrDefault(argPrefix, defaultValue) {
   const matchedArg = process.argv
     .slice(2)
-    .find(arg => arg.includes(`${argPrefix}=`));
+    .find((arg) => arg.includes(`${argPrefix}=`));
 
   // Cypress requires env vars to be passed as comma separated list
   // otherwise it only accepts the last provided variable,
@@ -42,7 +42,7 @@ const paths = glob.sync(specGlob);
 
 const featuresToRun = [];
 
-paths.forEach(featurePath => {
+paths.forEach((featurePath) => {
   const spec = `${fs.readFileSync(featurePath)}`;
   const parsedFeature = new Parser().parse(spec);
 
@@ -54,7 +54,7 @@ paths.forEach(featurePath => {
   const featureTags = parsedFeature.feature.tags;
   const featureShouldRun = shouldProceedCurrentStep(featureTags, envTags);
   const taggedScenarioShouldRun = parsedFeature.feature.children.some(
-    section =>
+    (section) =>
       section.tags &&
       section.tags.length &&
       shouldProceedCurrentStep(section.tags.concat(featureTags), envTags)
@@ -83,7 +83,7 @@ try {
       getCypressExecutable(),
       [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
       {
-        stdio: [process.stdin, process.stdout, process.stderr]
+        stdio: [process.stdin, process.stdout, process.stderr],
       }
     );
   } else {

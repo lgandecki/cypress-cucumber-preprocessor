@@ -10,7 +10,7 @@ const {
   Before,
   After,
   defineParameterType,
-  defineStep
+  defineStep,
 } = require("./lib/resolveStepDefinition");
 
 module.exports = {
@@ -22,5 +22,5 @@ module.exports = {
   Before,
   After,
   defineParameterType,
-  defineStep
+  defineStep,
 };

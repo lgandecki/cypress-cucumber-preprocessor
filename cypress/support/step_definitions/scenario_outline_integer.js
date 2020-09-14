@@ -7,6 +7,6 @@ When("I add {int} and {int}", (a, b) => {
   sum = a + b;
 });
 
-Then("I verify that the result is equal the {int}", result => {
+Then("I verify that the result is equal the {int}", (result) => {
   expect(sum).to.equal(result);
 });

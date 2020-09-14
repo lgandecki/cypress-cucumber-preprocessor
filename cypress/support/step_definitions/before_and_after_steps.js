@@ -4,7 +4,7 @@ const {
   Before,
   After,
   Given,
-  Then
+  Then,
 } = require("cypress-cucumber-preprocessor/steps");
 
 let beforeCounter = 0;
