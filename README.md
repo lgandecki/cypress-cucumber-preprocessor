@@ -31,6 +31,7 @@ You can follow the documentation below, or if you prefer to hack on a working ex
   * [Smart tagging](#smart-tagging)
 * [How to run the tests](#excluding-tests)
   * [Running tagged tests](#running-tagged-tests)
+  * [Hiding Pending Scenarios](#hiding-pending-scenarios)
   * [Ignoring specific scenarios using tags when executing test runner](#ignoring-specific-scenarios-using-tags-when-executing-test-runner)
   * [Output](#output)
 * [IDE support](#ide-support)
@@ -384,6 +385,17 @@ The trick consists in adding the "env" property with the "TAGS" subproperty in t
 ```
 
 Then, any scenarios tagged with @ignore will be skipped when running the tests using the cypress test runner
+
+### Hiding Pending Scenarios
+
+By default, every defined scenario will get a test that Cypress can run,
+even if the tags determine that the test should be skipped or considered "pending".
+If you would like to hide those scenarios from appearing in your test run,
+set the `CYPRESS_HIDE_PENDING_SCENARIOS` environment variable:
+
+```shell
+  CYPRESS_HIDE_PENDING_SCENARIOS=true ./node_modules/.bin/cypress run
+```
 
 ### Limiting to a subset of feature files
 
