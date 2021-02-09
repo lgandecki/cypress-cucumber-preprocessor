@@ -45,7 +45,7 @@
   "dependencies": {
     "@cypress/browserify-preprocessor": "^3.0.1",
     "chai": "^4.2.0",
-    "chokidar": "^3.4.2",
+    "chokidar": "2.1.8",
     "cosmiconfig": "^4.0.0",
     "cucumber": "^4.2.1",
     "cucumber-expressions": "^6.0.1",
