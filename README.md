@@ -107,12 +107,12 @@ Put your feature files in `cypress/integration/`
 Example: cypress/integration/Google.feature
 
 ```gherkin
-Feature: The Facebook
+Feature: Google Main Page
 
-  I want to open a social network page
+  I want to open a search engine
   
   @focus
-  Scenario: Opening a social network page
+  Scenario: Opening a search engine page
     Given I open Google page
     Then I see "Google" in the title
 ```
