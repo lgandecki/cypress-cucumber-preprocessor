@@ -412,7 +412,7 @@ This behaviour is configurable. Use [cosmiconfig](https://github.com/davidthecla
       "generate": true,
       "outputFolder": "cypress/cucumber-json",
       "filePrefix": "",
-      "fileSuffix": ".cucumber"
+      "fileSuffix": ""
     }
   }
 ```
@@ -422,8 +422,8 @@ This behaviour is configurable. Use [cosmiconfig](https://github.com/davidthecla
 Option | Default value | Description
 ------------ | ------------- | -------------
 outputFolder | `cypress/cucumber-json` | The folder to write the files to
-filePrefix | `''` *(no prefix)* | A separate json file is generated for each feature based on the name of the feature file. All generated file names will be prefixed with this option if specified
-fileSuffix | `.cucumber` | A suffix to add to each generated filename
+filePrefix | `''` *(no prefix)* | A separate json file is generated for each feature based on the name of the feature file. If specified, all generated file names will be prefixed with specified `string`
+fileSuffix | `''` *(generated alphanumeric suffix)* | If default values are used, then it adds underscore and randomly generated alphanumeric suffix for each generated filename (e.g `_oK9x`). If specified, all generated file names will be suffixed with specified `string` 
 generate | `false` | Flag to output cucumber.json or not
 
 ## IDE support
