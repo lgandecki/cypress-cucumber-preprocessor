@@ -12,16 +12,20 @@ Feature: Tags Implementation
     Given my cypress environment variable TAGS is '@smoke-tests'
     Then tests tagged '@smoke-tests' should proceed
     And tests tagged '@wrong-tag' should not proceed
+    And tests tagged '@focus' should proceed
 
   Scenario: Pass a tag to ignore
     Given my cypress environment variable TAGS is 'not @ignore'
     Then tests tagged '@ignore' should not proceed
-    Then tests tagged '@do-not-ignore' should proceed
+    And tests tagged '@do-not-ignore' should proceed
+    And tests tagged '@focus' should proceed
+    And tests tagged '@ignore @focus' should proceed
 
   Scenario: Passing multiple tags joined by AND operator
     Given my cypress environment variable TAGS is '@foo and @bar'
     Then tests tagged '@foo @bar' should proceed
     And tests tagged '@foo @ba' should not proceed
+    And tests tagged '@focus' should proceed
 
   Scenario: Passing multiple tags joined by OR operator
     Given my cypress environment variable TAGS is '@foo or @bar'
@@ -29,3 +33,4 @@ Feature: Tags Implementation
     And tests tagged '@bar' should proceed
     And tests tagged '@foo @baz' should proceed
     And tests tagged '@fo @ba' should not proceed
+    And tests tagged '@focus' should proceed

@@ -16,5 +16,9 @@ Feature: Smart Tagging
     Then this unfocused scenario should not run
 
   @focus
-  Scenario: This scenario is also focused and also should run
+  Scenario: This scenario is also focused and should also run
+    Then this focused scenario should run
+
+  @this-tag-affects-nothing @focus
+  Scenario: This scenario is focused and should run
     Then this focused scenario should run

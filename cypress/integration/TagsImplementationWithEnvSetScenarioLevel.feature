@@ -12,3 +12,8 @@ Feature: Tags Implementation with environmental variables set only at scenario l
   Scenario: This scenario should run
     Given '@test-tag' is in current TAGS environmental variable
     Then this should run
+
+  @focus
+  Scenario: This scenario should run
+    Given '@test-tag' is in current TAGS environmental variable
+    Then this should run
