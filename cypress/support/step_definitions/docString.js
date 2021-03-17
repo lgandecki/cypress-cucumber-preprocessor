@@ -30,6 +30,6 @@ Then("I can interpret it as a string", () => {
   expect(freemarkerSnippet).to.be.a("string");
 });
 
-Then(/^I should have a string with argument "([^"]*)"$/, function (argument: string) {
+Then(/^I should have a string with argument "([^"]*)"$/, function (argument) {
   expect(argString).to.contain(argument);
 });
