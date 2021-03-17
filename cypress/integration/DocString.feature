@@ -21,7 +21,7 @@ Feature: Being a plugin handling DocString scenario
     Then I can interpret it as a string
 
   Scenario Outline: DocString
-    When I use DocString with argument like this
+    When I use DocString with argument like this:
       """
       Hey,
       You have been granted <Role> rights.
