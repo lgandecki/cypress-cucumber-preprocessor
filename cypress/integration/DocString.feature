@@ -19,3 +19,17 @@ Feature: Being a plugin handling DocString scenario
     </div>
     """
     Then I can interpret it as a string
+
+  Scenario Outline: DocString
+    When I use DocString with argument like this
+      """
+      Hey,
+      You have been granted <Role> rights.
+      -The Admins
+      """
+    Then I should have a string with argument "<Role>"
+    
+   Examples:
+    |  Role     |
+    |  Manager  |
+    |  Admin    |
