@@ -1,6 +1,7 @@
 /* global Then, When */
 
 let code = "";
+let argString = "";
 // eslint-disable-next-line prefer-const
 let variableToVerify = ""; // we are assigning this through eval
 
@@ -8,6 +9,10 @@ console.log(window);
 
 When("I use DocString for code like this:", (dataString) => {
   code = dataString;
+});
+
+When("I use DocString with argument like this:", (dataString) => {
+  argString = dataString;
 });
 
 Then("I ran it and verify that it executes it", () => {
@@ -23,4 +28,8 @@ When("I use DocString for freemarker code like this", (dataString) => {
 
 Then("I can interpret it as a string", () => {
   expect(freemarkerSnippet).to.be.a("string");
+});
+
+Then(/^I should have a string with argument "([^"]*)"$/, function (argument: string) {
+  expect(argString).to.contain(argument);
 });
