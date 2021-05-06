@@ -392,6 +392,22 @@ You can use a glob expression to select which feature files should be included.
 Example:
 
 ```shell
+  ./node_modules/.bin/cypress-tags run -g 'cypress/integration/**/*.feature'
+```
+
+or 
+
+```shell
+  ./node_modules/.bin/cypress-tags run --glob 'cypress/integration/**/*.feature'
+```
+
+or
+
+<span style="color:orange">*DEPRECATED*</span>
+
+This will not work if your glob pattern contains commas since Cypress expects comma delimited string of env variables.
+
+```shell
   ./node_modules/.bin/cypress-tags run -e GLOB='cypress/integration/**/*.feature'
 ```
 

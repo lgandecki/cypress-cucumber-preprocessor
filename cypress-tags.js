@@ -5,7 +5,12 @@ const glob = require("glob");
 const fs = require("fs");
 const { execFileSync } = require("child_process");
 
-const { shouldProceedCurrentStep } = require("./lib/tagsHelper");
+const {
+  stripCLIArguments,
+  parseArgsOrDefault,
+  getGlobArg,
+  shouldProceedCurrentStep,
+} = require("./lib/tagsHelper");
 
 const debug = (message, ...rest) =>
   process.env.DEBUG
@@ -13,22 +18,7 @@ const debug = (message, ...rest) =>
       console.log(`DEBUG: ${message}`, rest.length ? rest : "")
     : null;
 
-function parseArgsOrDefault(argPrefix, defaultValue) {
-  const matchedArg = process.argv
-    .slice(2)
-    .find((arg) => arg.includes(`${argPrefix}=`));
-
-  // Cypress requires env vars to be passed as comma separated list
-  // otherwise it only accepts the last provided variable,
-  // the way we replace here accomodates for that.
-  const argValue = matchedArg
-    ? matchedArg.replace(new RegExp(`.*${argPrefix}=`), "").replace(/,.*/, "")
-    : "";
-
-  return argValue !== "" ? argValue : defaultValue;
-}
-
-const envGlob = parseArgsOrDefault("GLOB", false);
+const envGlob = getGlobArg();
 const envTags = parseArgsOrDefault("TAGS", "");
 
 let specGlob = envGlob || "cypress/integration/**/*.feature";
@@ -122,7 +112,11 @@ try {
   if (featuresToRun.length || envTags === "") {
     execFileSync(
       getCypressExecutable(),
-      [...process.argv.slice(2), "--spec", featuresToRun.join(",")],
+      [
+        ...stripCLIArguments(["-g", "--glob"]),
+        "--spec",
+        featuresToRun.join(","),
+      ],
       {
         stdio: [process.stdin, process.stdout, process.stderr],
       }
