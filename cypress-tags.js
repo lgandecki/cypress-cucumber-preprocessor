@@ -4,13 +4,13 @@ const { Parser } = require("gherkin");
 const glob = require("glob");
 const fs = require("fs");
 const { execFileSync } = require("child_process");
-
 const {
-  stripCLIArguments,
   parseArgsOrDefault,
+  stripCLIArguments,
   getGlobArg,
-  shouldProceedCurrentStep,
-} = require("./lib/tagsHelper");
+} = require("./lib/cypressTagsHelpers");
+
+const { shouldProceedCurrentStep } = require("./lib/tagsHelper");
 
 const debug = (message, ...rest) =>
   process.env.DEBUG
