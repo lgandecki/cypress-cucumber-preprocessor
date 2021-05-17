@@ -112,11 +112,7 @@ try {
   if (featuresToRun.length || envTags === "") {
     execFileSync(
       getCypressExecutable(),
-      [
-        ...stripCLIArguments(["-g", "--glob"]),
-        "--spec",
-        featuresToRun.join(","),
-      ],
+      [...stripCLIArguments(["g", "glob"]), "--spec", featuresToRun.join(",")],
       {
         stdio: [process.stdin, process.stdout, process.stderr],
       }

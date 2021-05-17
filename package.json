@@ -50,6 +50,7 @@
     "cucumber": "^4.2.1",
     "cucumber-expressions": "^6.0.1",
     "cucumber-tag-expressions": "^1.1.1",
+    "dargs": "^7.0.0",
     "debug": "^3.0.1",
     "gherkin": "^5.1.0",
     "glob": "^7.1.2",
