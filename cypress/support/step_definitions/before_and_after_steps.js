@@ -11,6 +11,8 @@ let beforeCounter = 0;
 let beforeWithTagCounter = 0;
 let flagSetByUntaggedAfter = false;
 let flagSetByTaggedAfter = false;
+let flagSetByUntaggedAfterWithError = false;
+let flagSetByTaggedAfterWithError = false;
 
 Before(() => {
   beforeCounter += 1;
@@ -36,10 +38,15 @@ After({ tags: "@willNeverRun" }, () => {
 After(() => {
   beforeCounter = 0;
   flagSetByUntaggedAfter = true;
+  flagSetByUntaggedAfterWithError = true;
 });
 
 After({ tags: "@withTaggedAfter" }, () => {
   flagSetByTaggedAfter = true;
+});
+
+After({ tags: "@withTaggedErroredAfter" }, () => {
+  flagSetByTaggedAfterWithError = true;
 });
 
 Given("I executed empty step", () => {});
@@ -70,4 +77,18 @@ Then("Flag should be set by untagged After", () => {
 
 Then("Flag should be set by tagged After", () => {
   expect(flagSetByTaggedAfter).to.equal(true);
+});
+
+Given("I executed step causing error", () => {
+  flagSetByUntaggedAfterWithError = false;
+  flagSetByTaggedAfterWithError = false;
+  throw new Error("Error executing step: I executed step causing error");
+});
+
+Then("Error flag should be set by untagged After", () => {
+  expect(flagSetByUntaggedAfterWithError).to.equal(true);
+});
+
+Then("Error flag should be set by tagged After", () => {
+  expect(flagSetByTaggedAfterWithError).to.equal(true);
 });
