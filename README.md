@@ -93,10 +93,10 @@ Please make use of [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) t
 
 Option | Default value | Description
 ------------ | ------------- | -------------
-commonPath | `cypress/integration/common` when `nonGlobalStepDefinitions` is true <br> `cypress/support/step_definitions` when `nonGlobalStepDefinitions` is false <br> `${nonGlobalStepBaseDir}/common` when `nonGlobalStepBaseDir` is defined | Define the path to a folder containing all common step definitions of your tests. When `nonGlobalStepBaseDir` is defined this path is defined from that base location. e.g `${nonGlobalStepBaseDir}/${commonPath}`.
+commonPath | `cypress/integration/common` when `nonGlobalStepDefinitions` is true <br> `cypress/support/step_definitions` when `nonGlobalStepDefinitions` is false <br> `${stepDefinitions}/common` when `stepDefinitions` is defined | Define the path to a folder containing all common step definitions of your tests. When `stepDefinitions` is defined this path is defined from that base location. e.g `${stepDefinitions}/${commonPath}`.
 nonGlobalStepDefinitions | false | If true use the Cypress Cucumber Preprocessor Style pattern for placing step definitions files. If false, we will use the "oldschool" (everything is global) Cucumber style.
-nonGlobalStepBaseDir| undefined | If defined and `nonGlobalStepDefinitions` is also true then step definition searches for folders with the features name will start from the directory provided here. The cwd is already taken into account. e.g `test/step_definitions`.
 stepDefinitions | `cypress/integration` when `nonGlobalStepDefinitions` is true <br> `cypress/support/step_definitions` when `nonGlobalStepDefinitions` is false | Path to the folder containing our step definitions.
+integrationFolder | same as stepDefinitions | Define this if you want to keep .feature files and steps definitions separate when using `nonGlobalStepDefinitions`.
 
 ## How to organize the tests
 
