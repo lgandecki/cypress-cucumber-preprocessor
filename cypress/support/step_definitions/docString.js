@@ -5,8 +5,6 @@ let argString = "";
 // eslint-disable-next-line prefer-const
 let variableToVerify = ""; // we are assigning this through eval
 
-console.log(window);
-
 When("I use DocString for code like this:", (dataString) => {
   code = dataString;
 });

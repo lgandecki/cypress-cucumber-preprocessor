@@ -42,3 +42,17 @@ Feature: Being a plugin handling Scenario Outline
     Examples:
       | here |
       | abc  |
+
+  Scenario Outline: Multiple Examples for <var>
+    When I enter example <var>
+    Then I verify that example <var> is executed
+
+    Examples:
+      | var |
+      | "1" |
+      | "2" |
+
+    Examples:
+      | var |
+      | "3" |
+      | "4" |
