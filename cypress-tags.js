@@ -24,6 +24,7 @@ const envTags = parseArgsOrDefault("TAGS", "");
 let specGlob = envGlob || "cypress/integration/**/*.feature";
 let ignoreGlob = "";
 let usingCypressConf = false;
+let cypressExecutable;
 
 if (!envGlob) {
   try {
@@ -53,6 +54,10 @@ if (!envGlob) {
     console.log("Using cypress.json configuration:");
     console.log("Spec files: ", specGlob);
     if (ignoreGlob) console.log("Ignored files: ", ignoreGlob);
+
+    if (cypressConf && cypressConf.cypressExecutable) {
+      cypressExecutable = cypressConf.cypressExecutable;
+    }
   } catch (err) {
     usingCypressConf = false;
     specGlob = "cypress/integration/**/*.feature";
@@ -103,7 +108,11 @@ function getOsSpecificExecutable(command) {
 }
 
 function getCypressExecutable() {
-  const command = getOsSpecificExecutable(`${__dirname}/../.bin/cypress`);
+  // check, if path to cypress-executable has been provided through cypress.json.
+  let command = cypressExecutable;
+  if (!command || !fs.existsSync(command)) {
+    command = getOsSpecificExecutable(`${__dirname}/../.bin/cypress`);
+  }
   // fallback to the globally installed cypress instead
   return fs.existsSync(command) ? command : getOsSpecificExecutable("cypress");
 }

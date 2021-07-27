@@ -365,6 +365,14 @@ Please note - we use our own cypress-tags wrapper to speed things up.
 This wrapper calls the cypress executable from local modules and if not found it falls back to the globally installed one.
 For more details and examples please take a look to the [example repo](https://github.com/TheBrainFamily/cypress-cucumber-example).
 
+In case you want to change the cypress-executable to a different one you can define it in the cypress.json as follows:
+
+```javascript
+{
+  "cypressExecutable": "path/to/cypress/executable"
+}
+```
+
 ### Ignoring specific scenarios using tags when executing test runner
 
 You can also use tags to skip or ignore specific tests/scenarios when running cypress test runner (where you don't have the abilitiy to pass parameters like in the examples above for the execution)
