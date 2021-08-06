@@ -18,10 +18,14 @@ const debug = (message, ...rest) =>
       console.log(`DEBUG: ${message}`, rest.length ? rest : "")
     : null;
 
+const error = (message, ...rest) =>
+  console.log(`ERROR: ${message}`, rest.length ? rest : "");
+
 const envGlob = getGlobArg();
 const envTags = parseArgsOrDefault("TAGS", "");
 
-let specGlob = envGlob || "cypress/integration/**/*.feature";
+let specGlob = envGlob;
+let cwd = envGlob ? "" : "cypress/integration";
 let ignoreGlob = "";
 let usingCypressConf = false;
 
@@ -31,7 +35,7 @@ if (!envGlob) {
     // maybe we can set this path in the plugin conf (package.json : "cypressConf": "test/cypress.json")
     // eslint-disable-next-line import/no-unresolved,global-require
     const cypressConf = require("../../cypress.json");
-    const integrationFolder =
+    cwd =
       cypressConf && cypressConf.integrationFolder
         ? cypressConf.integrationFolder.replace(/\/$/, "")
         : "cypress/integration";
@@ -41,35 +45,36 @@ if (!envGlob) {
     }
 
     if (cypressConf && cypressConf.testFiles) {
-      let testFiles = !Array.isArray(cypressConf.testFiles)
-        ? cypressConf.testFiles.split(",")
+      const testFiles = !Array.isArray(cypressConf.testFiles)
+        ? [cypressConf.testFiles]
         : cypressConf.testFiles;
-      testFiles = testFiles.map((pattern) => `${integrationFolder}/${pattern}`);
       specGlob =
         testFiles.length > 1 ? `{${testFiles.join(",")}}` : testFiles[0];
     } else {
-      specGlob = `${integrationFolder}/**/*.feature`;
+      specGlob = `**/*.feature`;
     }
     console.log("Using cypress.json configuration:");
     console.log("Spec files: ", specGlob);
     if (ignoreGlob) console.log("Ignored files: ", ignoreGlob);
   } catch (err) {
     usingCypressConf = false;
-    specGlob = "cypress/integration/**/*.feature";
-    console.log("Failed to read cypress.json, using default configuration");
+    specGlob = "**/*.feature";
+    error("Failed to read cypress.json, using default configuration", err);
     console.log("Spec files: ", specGlob);
   }
 }
 
-debug("Found glob", specGlob);
+debug("Found glob", cwd, specGlob);
 debug("Found tag expression", envTags);
 
 const paths = glob
   .sync(specGlob, {
+    cwd,
     nodir: true,
     ignore: usingCypressConf ? ignoreGlob : "",
   })
-  .filter((pathName) => pathName.endsWith(".feature"));
+  .filter((path) => path.endsWith(".feature"))
+  .map((path) => (envGlob ? path : `${cwd}/${path}`));
 
 const featuresToRun = [];
 
