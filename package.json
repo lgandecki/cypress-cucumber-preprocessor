@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "commitizen": "^4.2.1",
-    "cypress": "^5.1.0",
+    "cypress": ">=5.1 <=8",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
