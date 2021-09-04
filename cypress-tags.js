@@ -84,11 +84,14 @@ const featuresToRun = paths.filter((featurePath) => {
     scenario.examples
       ? scenario.examples.some((example) =>
           shouldProceedCurrentStep(
-            [...example.tags, ...scenario.tags, ...feature.tags],
+            [...example.tags, ...(scenario.tags || []), ...feature.tags],
             envTags
           )
         )
-      : shouldProceedCurrentStep([...scenario.tags, ...feature.tags], envTags)
+      : shouldProceedCurrentStep(
+          [...(scenario.tags || []), ...feature.tags],
+          envTags
+        )
   );
 
   debug(`Feature: ${featurePath}, shouldRun: ${shouldRun}`);
