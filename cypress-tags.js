@@ -71,31 +71,32 @@ const paths = glob
   })
   .filter((pathName) => pathName.endsWith(".feature"));
 
-const featuresToRun = [];
-
-paths.forEach((featurePath) => {
+const featuresToRun = paths.filter((featurePath) => {
   const spec = `${fs.readFileSync(featurePath)}`;
-  const parsedFeature = new Parser().parse(spec);
+  const { feature } = new Parser().parse(spec);
 
-  if (!parsedFeature.feature) {
+  if (!feature) {
     debug(`Feature: ${featurePath} is empty`);
-    return;
+    return false;
   }
 
-  const featureTags = parsedFeature.feature.tags;
-  const featureShouldRun = shouldProceedCurrentStep(featureTags, envTags);
-  const taggedScenarioShouldRun = parsedFeature.feature.children.some(
-    (section) =>
-      section.tags &&
-      section.tags.length &&
-      shouldProceedCurrentStep(section.tags.concat(featureTags), envTags)
+  const shouldRun = feature.children.some((scenario) =>
+    scenario.examples
+      ? scenario.examples.some((example) =>
+          shouldProceedCurrentStep(
+            [...example.tags, ...(scenario.tags || []), ...feature.tags],
+            envTags
+          )
+        )
+      : shouldProceedCurrentStep(
+          [...(scenario.tags || []), ...feature.tags],
+          envTags
+        )
   );
-  debug(
-    `Feature: ${featurePath}, featureShouldRun: ${featureShouldRun}, taggedScenarioShouldRun: ${taggedScenarioShouldRun}`
-  );
-  if (featureShouldRun || taggedScenarioShouldRun) {
-    featuresToRun.push(featurePath);
-  }
+
+  debug(`Feature: ${featurePath}, shouldRun: ${shouldRun}`);
+
+  return shouldRun;
 });
 
 function getOsSpecificExecutable(command) {

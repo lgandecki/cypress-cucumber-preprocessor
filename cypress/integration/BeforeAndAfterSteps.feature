@@ -48,3 +48,27 @@ Scenario: With multiple tags
     Given I executed empty step
     Then Tagged Before was called twice
     And Untagged Before was called once
+
+Scenario Outline: With tagged Before only on one of the examples
+  Then Tagged Before was <result>
+
+  @withTaggedBefore
+  Examples:
+  | result      |
+  | called once |
+
+  Examples:
+    | result     |
+    | not called |
+
+@withTaggedBefore
+Scenario Outline: With tagged Before on scenario outline with multiple examples
+    Then Tagged Before was <result>
+
+    Examples:
+      | result      |
+      | called once |
+
+    Examples:
+      | result      |
+      | called once |
