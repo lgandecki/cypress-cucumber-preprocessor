@@ -117,7 +117,7 @@ Feature: Google Main Page
     Then I see "Google" in the title
 ```
 
-*The @focus tag is not necessary, but we want to you to notice it so you look it up below. **It will speed up your workflow significantly**!*
+*The @focus tag is not necessary, but we want you to notice it so you look it up below. **It will speed up your workflow significantly**!*
 
 ### Bundled features files
 
