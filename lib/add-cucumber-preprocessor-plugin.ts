@@ -280,7 +280,7 @@ export default async function addCucumberPreprocessorPlugin(
   if (tags !== null && preprocessor.filterSpecs) {
     const node = parse(tags);
 
-    (config as any).testFiles = getTestFiles(
+    (config as any).specPattern = getTestFiles(
       config as unknown as ICypressConfiguration
     ).filter((testFile) => {
       const content = syncFs.readFileSync(testFile).toString("utf-8");

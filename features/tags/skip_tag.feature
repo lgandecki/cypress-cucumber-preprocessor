@@ -5,7 +5,7 @@ Feature: @skip tag
    - Presence of this tag override any other tag filter
 
   Scenario: 1 / 2 scenarios tagged with @skip
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -24,7 +24,7 @@ Feature: @skip tag
     And it should appear to have skipped the scenario "another scenario"
 
   Scenario: 2 / 2 scenarios tagged with @skip
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @skip
@@ -43,7 +43,7 @@ Feature: @skip tag
     Then it should appear as if both tests were skipped
 
   Scenario: 1 / 2 example table tagged with @skip
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -70,7 +70,7 @@ Feature: @skip tag
     And it should appear to have skipped the scenario "a scenario (example #2)"
 
   Scenario: 2 / 2 example table tagged with @skip
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -98,7 +98,7 @@ Feature: @skip tag
     And it should appear to have skipped the scenario "a scenario (example #2)"
 
   Scenario: specifying tags
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @foo

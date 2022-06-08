@@ -1,6 +1,6 @@
 Feature: configuration overrides
   Scenario: overriding stepDefinitions through -e
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature name
         Scenario: a scenario name
@@ -15,7 +15,7 @@ Feature: configuration overrides
     Then it passes
 
   Scenario: overriding stepDefinitions through environment variables
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature name
         Scenario: a scenario name

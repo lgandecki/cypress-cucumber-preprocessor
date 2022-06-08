@@ -1,6 +1,7 @@
 import { Given } from "@cucumber/cucumber";
 import path from "path";
 import { promises as fs } from "fs";
+import { writeCypressConfig } from "../support/helpers";
 
 async function addOrUpdateConfiguration(
   absoluteConfigPath: string,
@@ -43,7 +44,5 @@ Given("additional preprocessor configuration", async function (jsonContent) {
 });
 
 Given("additional Cypress configuration", async function (jsonContent) {
-  const absoluteConfigPath = path.join(this.tmpDir, "cypress.json");
-
-  await addOrUpdateConfiguration(absoluteConfigPath, jsonContent);
+  await writeCypressConfig(this.tmpDir, jsonContent);
 });

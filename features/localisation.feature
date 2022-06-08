@@ -1,6 +1,6 @@
 Feature: localisation
   Scenario: norwegian
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       # language: no
       Egenskap: en funksjonalitet

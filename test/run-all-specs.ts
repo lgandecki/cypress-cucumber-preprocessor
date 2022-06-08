@@ -32,28 +32,25 @@ describe("Run all specs", () => {
     await fs.rm(this.tmpDir, { recursive: true, force: true });
 
     await writeFile(
-      path.join(this.tmpDir, "cypress.json"),
-      JSON.stringify({
-        testFiles: "**/*.feature",
-        video: false,
-      })
-    );
+      path.join(this.tmpDir, "cypress.config.js"),
+      `const { createEsbuildPlugin } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 
-    await writeFile(
-      path.join(this.tmpDir, "cypress", "plugins", "index.js"),
-      `
-        const { createEsbuildPlugin } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
-        const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
-
-        module.exports = (on, config) => {
-          on(
-            "file:preprocessor",
-            createBundler({
-              plugins: [createEsbuildPlugin(config)]
-            })
-          );
-        }
-      `
+module.exports = {
+  e2e: {
+    specPattern: "**/*.feature",
+    video: false,
+    setupNodeEvents(on, config) {
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)]
+        })
+      );
+    }
+  }
+}
+`
     );
 
     await fs.mkdir(path.join(this.tmpDir, "node_modules", "@badeball"), {
@@ -84,22 +81,22 @@ describe("Run all specs", () => {
     `;
 
     await writeFile(
-      path.join(this.tmpDir, "cypress", "integration", "a.feature"),
+      path.join(this.tmpDir, "cypress", "e2e", "a.feature"),
       feature
     );
 
     await writeFile(
-      path.join(this.tmpDir, "cypress", "integration", "a.ts"),
+      path.join(this.tmpDir, "cypress", "e2e", "a.ts"),
       steps
     );
 
     await writeFile(
-      path.join(this.tmpDir, "cypress", "integration", "b.feature"),
+      path.join(this.tmpDir, "cypress", "e2e", "b.feature"),
       feature
     );
 
     await writeFile(
-      path.join(this.tmpDir, "cypress", "integration", "b.ts"),
+      path.join(this.tmpDir, "cypress", "e2e", "b.ts"),
       steps
     );
 

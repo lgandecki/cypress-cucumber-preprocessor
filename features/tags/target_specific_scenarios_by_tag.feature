@@ -1,7 +1,7 @@
 Feature: target specific scenario
 
   Background:
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: some feature
         @a

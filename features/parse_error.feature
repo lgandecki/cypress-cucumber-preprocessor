@@ -1,7 +1,7 @@
 Feature: parse errors
 
   Scenario: tagged rules
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature name
         @tag

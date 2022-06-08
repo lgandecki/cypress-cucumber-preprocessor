@@ -12,7 +12,7 @@ Feature: attachments
     And I've ensured cucumber-json-formatter is installed
 
   Scenario: string identity
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -30,7 +30,7 @@ Feature: attachments
     And there should be a JSON output similar to "fixtures/attachments/string.json"
 
   Scenario: array buffer
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -48,7 +48,7 @@ Feature: attachments
     And there should be a JSON output similar to "fixtures/attachments/string.json"
 
   Scenario: string encoded
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario

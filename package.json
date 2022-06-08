@@ -42,7 +42,7 @@
     "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "dependencies": {
-    "@badeball/cypress-configuration": "^2.1.0",
+    "@badeball/cypress-configuration": "^3.0.0",
     "@cucumber/cucumber-expressions": "^15.0.1",
     "@cucumber/gherkin": "^15.0.2",
     "@cucumber/messages": "^13.2.1",
@@ -64,7 +64,7 @@
     "@types/debug": "^4.1.7",
     "@types/glob": "^7.2.0",
     "@types/stream-buffers": "^3.0.4",
-    "cypress": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+    "cypress": "^10.0.0",
     "dtslint": "^4.2.1",
     "esbuild": "^0.14.23",
     "mocha": "^9.2.1",
@@ -79,7 +79,7 @@
   },
   "peerDependencies": {
     "@cypress/browserify-preprocessor": "^3.0.1",
-    "cypress": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+    "cypress": "^10.0.0",
     "esbuild": "^0.14.23"
   },
   "peerDependenciesMeta": {

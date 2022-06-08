@@ -29,7 +29,7 @@
     "keyword": "Feature",
     "line": 1,
     "name": "a feature",
-    "uri": "cypress/integration/a.feature"
+    "uri": "cypress/e2e/a.feature"
   },
   {
     "description": "",
@@ -61,6 +61,6 @@
     "keyword": "Feature",
     "line": 1,
     "name": "another feature",
-    "uri": "cypress/integration/b.feature"
+    "uri": "cypress/e2e/b.feature"
   }
 ]

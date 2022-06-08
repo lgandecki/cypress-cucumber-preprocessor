@@ -23,7 +23,7 @@ Please note that if you use arrow functions, you won’t be able to share state 
 Even though `setWorldConstructor` isn't implemented, it's behavior can be closely replicated like shown below.
 
 ```gherkin
-# cypress/integration/math.feature
+# cypress/e2e/math.feature
 Feature: Replicating setWorldConstructor()
   Scenario: easy maths
     Given a variable set to 1
@@ -32,7 +32,7 @@ Feature: Replicating setWorldConstructor()
 ```
 
 ```ts
-// cypress/support/index.ts
+// cypress/support/e2e.ts
 beforeEach(function () {
   const world = {
     variable: 0,

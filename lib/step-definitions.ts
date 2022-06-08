@@ -61,22 +61,15 @@ export function pathParts(relativePath: string): string[] {
 
 export function getStepDefinitionPatterns(
   configuration: {
-    cypress: Pick<ICypressConfiguration, "projectRoot" | "integrationFolder">;
+    cypress: Pick<ICypressConfiguration, "projectRoot">;
     preprocessor: IPreprocessorConfiguration;
   },
   filepath: string
 ): string[] {
-  const fullIntegrationFolder = path.isAbsolute(
-    configuration.cypress.integrationFolder
-  )
-    ? configuration.cypress.integrationFolder
-    : path.join(
-        configuration.cypress.projectRoot,
-        configuration.cypress.integrationFolder
-      );
+  const projectRoot = configuration.cypress.projectRoot;
 
-  if (!isPathInside(filepath, fullIntegrationFolder)) {
-    throw new Error(`${filepath} is not inside ${fullIntegrationFolder}`);
+  if (!isPathInside(filepath, projectRoot)) {
+    throw new Error(`${filepath} is not inside ${projectRoot}`);
   }
 
   debug(
@@ -86,7 +79,7 @@ export function getStepDefinitionPatterns(
   );
 
   const filepathReplacement = trimFeatureExtension(
-    path.relative(fullIntegrationFolder, filepath)
+    path.relative(projectRoot, filepath)
   );
 
   debug(`replacing [filepath] with ${util.inspect(filepathReplacement)}`);

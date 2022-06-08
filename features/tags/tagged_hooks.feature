@@ -29,7 +29,7 @@ Feature: tagged Hooks
       """
 
   Scenario: hooks filtered by tags on scenario
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature:
         @foo
@@ -41,7 +41,7 @@ Feature: tagged Hooks
     Then it passes
 
   Scenario: tags cascade from feature to scenario
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       @foo
       Feature:

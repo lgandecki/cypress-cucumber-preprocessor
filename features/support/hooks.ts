@@ -2,7 +2,7 @@ import { After, Before, formatterHelpers } from "@cucumber/cucumber";
 import path from "path";
 import assert from "assert";
 import { promises as fs } from "fs";
-import { writeFile } from "./helpers";
+import { writeFile, writeCypressConfig } from "./helpers";
 
 const projectPath = path.join(__dirname, "..", "..");
 
@@ -20,18 +20,11 @@ Before(async function ({ gherkinDocument, pickle }) {
 
   await fs.rm(this.tmpDir, { recursive: true, force: true });
 
-  await writeFile(
-    path.join(this.tmpDir, "cypress.json"),
-    JSON.stringify(
-      {
-        testFiles: "**/*.feature",
-        video: false,
-        nodeVersion: "system",
-      },
-      null,
-      2
-    )
-  );
+  // create a default support file so that cypress doesn't fail
+  // cf. https://on.cypress.io/support-file-missing-or-invalid
+  await writeFile(path.join(this.tmpDir, "cypress/support/e2e.ts"), "");
+
+  await writeCypressConfig(this.tmpDir);
 
   await fs.mkdir(path.join(this.tmpDir, "node_modules", "@badeball"), {
     recursive: true,

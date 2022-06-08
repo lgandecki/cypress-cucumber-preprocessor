@@ -6,7 +6,7 @@ Feature: @only tag
    - Presence of this tag override any other tag filter
 
   Scenario: 1 / 2 scenarios tagged with @only
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @only
@@ -25,7 +25,7 @@ Feature: @only tag
     And it should appear to have skipped the scenario "another scenario"
 
   Scenario: 2 / 2 scenarios tagged with @only
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @only
@@ -44,7 +44,7 @@ Feature: @only tag
     Then it should appear as if both tests ran
 
   Scenario: 1 / 2 example table tagged with @only
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -71,7 +71,7 @@ Feature: @only tag
     And it should appear to have skipped the scenario "a scenario (example #2)"
 
   Scenario: 2 / 2 example table tagged with @only
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -99,14 +99,14 @@ Feature: @only tag
     And it should appear to have run the scenario "a scenario (example #2)"
 
   Scenario: one file with @only, one without
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @only
         Scenario: a scenario
           Given a step
       """
-    And a file named "cypress/integration/b.feature" with:
+    And a file named "cypress/e2e/b.feature" with:
       """
       Feature: b feature
         Scenario: another scenario
@@ -122,7 +122,7 @@ Feature: @only tag
     And it should appear to have run the scenario "another scenario"
 
   Scenario: specifying tags
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @only
@@ -143,7 +143,7 @@ Feature: @only tag
     And it should appear to have skipped the scenario "another scenario"
 
   Scenario: @focus (backwards compatibility)
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         @focus

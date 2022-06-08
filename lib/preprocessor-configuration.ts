@@ -295,8 +295,8 @@ export class PreprocessorConfiguration implements IPreprocessorConfiguration {
     return (
       this.environmentOverrides.stepDefinitions ??
       this.explicitValues.stepDefinitions ?? [
-        "cypress/integration/[filepath]/**/*.{js,ts}",
-        "cypress/integration/[filepath].{js,ts}",
+        "[filepath]/**/*.{js,ts}",
+        "[filepath].{js,ts}",
         "cypress/support/step_definitions/**/*.{js,ts}",
       ]
     );

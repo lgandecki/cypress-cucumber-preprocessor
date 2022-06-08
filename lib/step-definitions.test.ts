@@ -15,7 +15,7 @@ function example(
   filepath: string,
   cypressConfiguration: Pick<
     ICypressConfiguration,
-    "projectRoot" | "integrationFolder"
+    "projectRoot"
   >,
   preprocessorConfiguration: Partial<IPreprocessorConfiguration>,
   expected: string[]
@@ -67,55 +67,53 @@ describe("pathParts()", () => {
 
 describe("getStepDefinitionPatterns()", () => {
   example(
-    "/foo/bar/cypress/integration/baz.feature",
+    "/foo/bar/cypress/e2e/baz.feature",
     {
       projectRoot: "/foo/bar",
-      integrationFolder: "cypress/integration",
     },
     {},
     [
-      "/foo/bar/cypress/integration/baz/**/*.{js,ts}",
-      "/foo/bar/cypress/integration/baz.{js,ts}",
+      "/foo/bar/cypress/e2e/baz/**/*.{js,ts}",
+      "/foo/bar/cypress/e2e/baz.{js,ts}",
       "/foo/bar/cypress/support/step_definitions/**/*.{js,ts}",
     ]
   );
 
   example(
-    "/cypress/integration/foo/bar/baz.feature",
+    "/cypress/e2e/foo/bar/baz.feature",
     {
       projectRoot: "/",
-      integrationFolder: "cypress/integration",
     },
     {
-      stepDefinitions: "cypress/integration/[filepath]/step_definitions/*.ts",
+      stepDefinitions: "[filepath]/step_definitions/*.ts",
     },
-    ["/cypress/integration/foo/bar/baz/step_definitions/*.ts"]
+    ["/cypress/e2e/foo/bar/baz/step_definitions/*.ts"]
   );
 
   example(
-    "/cypress/integration/foo/bar/baz.feature",
+    "/qux/cypress/e2e/foo/bar/baz.feature",
     {
-      projectRoot: "/",
-      integrationFolder: "cypress/integration",
+      projectRoot: "/qux",
     },
     {
-      stepDefinitions: "cypress/integration/[filepart]/step_definitions/*.ts",
+      stepDefinitions: "[filepart]/step_definitions/*.ts",
     },
     [
-      "/cypress/integration/foo/bar/baz/step_definitions/*.ts",
-      "/cypress/integration/foo/bar/step_definitions/*.ts",
-      "/cypress/integration/foo/step_definitions/*.ts",
-      "/cypress/integration/step_definitions/*.ts",
+      "/qux/cypress/e2e/foo/bar/baz/step_definitions/*.ts",
+      "/qux/cypress/e2e/foo/bar/step_definitions/*.ts",
+      "/qux/cypress/e2e/foo/step_definitions/*.ts",
+      "/qux/cypress/e2e/step_definitions/*.ts",
+      "/qux/cypress/step_definitions/*.ts",
+      "/qux/step_definitions/*.ts",
     ]
   );
 
-  it("should error when provided a path not within integrationFolder", () => {
+  it("should error when provided a path not within projectRoot", () => {
     assert.throws(() => {
       getStepDefinitionPatterns(
         {
           cypress: {
-            projectRoot: "/foo/bar",
-            integrationFolder: "cypress/integration",
+            projectRoot: "/qux",
           },
           preprocessor: {
             stepDefinitions: [],
@@ -123,7 +121,7 @@ describe("getStepDefinitionPatterns()", () => {
         },
         "/foo/bar/cypress/features/baz.feature"
       );
-    }, "/foo/bar/cypress/features/baz.feature is not within cypress/integration");
+    }, "/foo/bar/cypress/features/baz.feature is not within /qux");
   });
 
   it("should error when provided a path not within cwd", () => {
@@ -132,13 +130,12 @@ describe("getStepDefinitionPatterns()", () => {
         {
           cypress: {
             projectRoot: "/baz",
-            integrationFolder: "cypress/integration",
           },
           preprocessor: {
             stepDefinitions: [],
           },
         },
-        "/foo/bar/cypress/integration/baz.feature"
+        "/foo/bar/cypress/e2e/baz.feature"
       );
     }, "/foo/bar/cypress/features/baz.feature is not within /baz");
   });

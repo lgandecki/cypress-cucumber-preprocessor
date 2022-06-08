@@ -13,7 +13,7 @@ Feature: overriding event handlers
       """
 
   Scenario: overriding after:screenshot
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario

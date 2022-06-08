@@ -1,7 +1,7 @@
 Feature: doc string
 
   Scenario: as only step definition argument
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -22,7 +22,7 @@ Feature: doc string
     Then it passes
 
   Scenario: with other step definition arguments
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario

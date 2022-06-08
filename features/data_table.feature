@@ -1,7 +1,7 @@
 Feature: data tables
 
   Scenario: raw
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -24,7 +24,7 @@ Feature: data tables
     Then it passes
 
   Scenario: rows
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -50,7 +50,7 @@ Feature: data tables
     Then it passes
 
   Scenario: rowsHash
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -73,7 +73,7 @@ Feature: data tables
     Then it passes
 
   Scenario: hashes
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario
@@ -99,7 +99,7 @@ Feature: data tables
     Then it passes
 
   Scenario: empty cells
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario: a scenario

@@ -7,14 +7,14 @@ Feature: filter spec
         "filterSpecs": true
       }
       """
-    And a file named "cypress/integration/a.feature" with:
+    And a file named "cypress/e2e/a.feature" with:
       """
       @foo
       Feature: some feature
         Scenario: first scenario
           Given a step
       """
-    And a file named "cypress/integration/b.feature" with:
+    And a file named "cypress/e2e/b.feature" with:
       """
       @bar
       Feature: some other feature

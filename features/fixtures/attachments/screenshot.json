@@ -22,7 +22,7 @@
             },
             "embeddings": [
               {
-                "data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAM0lEQVR4Aa3BAQEAAAiDMKR/51uC7QYjJDGJSUxiEpOYxCQmMYlJTGISk5jEJCYxiUnsARwEAibDACoRAAAAAElFTkSuQmCC",
+                "data": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAANElEQVR4Aa3BAQEAAAiAIPP/xL7UCWEWjpDEJCYxiUlMYhKTmMQkJjGJSUxiEpOYxCQmsQc+nAIDul+gtgAAAABJRU5ErkJggg==",
                 "mime_type": "image/png"
               }
             ]
@@ -35,6 +35,6 @@
     "keyword": "Feature",
     "line": 1,
     "name": "a feature",
-    "uri": "cypress/integration/a.feature"
+    "uri": "cypress/e2e/a.feature"
   }
 ]

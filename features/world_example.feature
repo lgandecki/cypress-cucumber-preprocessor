@@ -1,7 +1,7 @@
 Feature: world
 
   Scenario: example of an World
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: Simple maths
         In order to do maths
@@ -24,7 +24,7 @@ Feature: world
             |  99 |      1234 |   1333 |
             |  12 |         5 |     17 |
       """
-    And a file named "cypress/support/index.js" with:
+    And a file named "cypress/support/e2e.ts" with:
       """
       beforeEach(function () {
         // This mimics setWorldConstructor of cucumber-js.

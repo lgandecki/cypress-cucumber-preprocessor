@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## Next
+
+Fixed [Cypress 10 compatibility issue](https://github.com/badeball/cypress-cucumber-preprocessor/issues/722).
+
+Breaking changes:
+
+- Preprocessor is no longer compatible with Cypress versions <10.
+- `stepDefinitions` configuration using `[filepath]` and `[filepart]` must be adapted due to the disapperance of the `integrationFolder` (cf. [step definitions](https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/step-definitions.md)).
+
+Basically, if you add the following Cypress configuration :
+
+```json
+{
+  "integrationFolder": "cypress/integration"
+}
+```
+
+and the following cypress-cucumber-preprocessor configuration :
+
+```json
+{
+  "stepDefinitions": "cypress/integration/[filepath].{ts,js}"
+}
+```
+
+Then, now that `integrationFolder` has been removed, you have to change your cypress-cucumber-preprocessor configuration to :
+
+```json
+{
+  "stepDefinitions": "[filepath].{ts,js}"
+}
+```
+
+(same applies to `[filepart]`).
+
 ## v10.0.2
 
 - Allow integration folders outside of project root, fixes [#719](https://github.com/badeball/cypress-cucumber-preprocessor/issues/719).

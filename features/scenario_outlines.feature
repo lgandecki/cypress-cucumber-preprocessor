@@ -1,7 +1,7 @@
 Feature: scenario outlines and examples
 
   Scenario: placeholder in step
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -19,7 +19,7 @@ Feature: scenario outlines and examples
     Then it passes
 
   Scenario: placeholder in docstring
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario
@@ -42,7 +42,7 @@ Feature: scenario outlines and examples
     Then it passes
 
   Scenario: placeholder in table
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: a feature
         Scenario Outline: a scenario

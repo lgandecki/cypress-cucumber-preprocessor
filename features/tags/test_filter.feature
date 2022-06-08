@@ -1,7 +1,7 @@
 Feature: test filter
 
   Scenario: with omitFiltered = false (default)
-    Given a file named "cypress/integration/a.feature" with:
+    Given a file named "cypress/e2e/a.feature" with:
       """
       Feature: some feature
         Rule: first rule
@@ -29,7 +29,7 @@ Feature: test filter
         "omitFiltered": true
       }
       """
-    And a file named "cypress/integration/a.feature" with:
+    And a file named "cypress/e2e/a.feature" with:
       """
       Feature: some feature
         Rule: first rule

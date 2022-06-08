@@ -18,7 +18,7 @@ $ npm install @badeball/cypress-cucumber-preprocessor
 The preprocessor (with its dependencies) parses Gherkin documents and allows you to write tests as shown below.
 
 ```cucumber
-# cypress/integration/duckduckgo.feature
+# cypress/e2e/duckduckgo.feature
 Feature: duckduckgo.com
   Scenario: visting the frontpage
     When I visit duckduckgo.com
@@ -26,7 +26,7 @@ Feature: duckduckgo.com
 ```
 
 ```ts
-// cypress/integration/duckduckgo.ts
+// cypress/e2e/duckduckgo.ts
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 When("I visit duckduckgo.com", () => {

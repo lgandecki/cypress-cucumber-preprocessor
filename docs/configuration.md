@@ -43,7 +43,7 @@ Every configuration option has a similar key which can be use to override it, sh
 
 | JSON path          | Environment key   | Example(s)                               |
 |--------------------|-------------------|------------------------------------------|
-| `stepDefinitions`  | `stepDefinitions` | `cypress/integration/[filepath].{js,ts}` |
+| `stepDefinitions`  | `stepDefinitions` | `[filepath].{js,ts}` |
 | `messages.enabled` | `messagesEnabled` | `true`, `false`                          |
 | `messages.output`  | `messagesOutput`  | `cucumber-messages.ndjson`               |
 | `json.enabled`     | `jsonEnabled`     | `true`, `false`                          |
