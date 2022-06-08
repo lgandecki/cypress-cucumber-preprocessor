@@ -1,4 +1,3 @@
-@skip
 Feature: mixing feature and non-feature specs
   Background:
     Given additional Cypress configuration

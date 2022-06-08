@@ -69,7 +69,6 @@ Feature: JSON formatter
     Then it passes
     And there should be a JSON output similar to "fixtures/multiple-features.json"
 
-  @skip
   Scenario: failing step
     Given additional Cypress configuration
       """
@@ -96,7 +95,6 @@ Feature: JSON formatter
     Then it fails
     And there should be a JSON output similar to "fixtures/failing-step.json"
 
-  @skip
   Scenario: undefined step
     Given additional Cypress configuration
       """
@@ -120,7 +118,6 @@ Feature: JSON formatter
     Then it fails
     And there should be a JSON output similar to "fixtures/undefined-steps.json"
 
-  @skip
   Scenario: pending step
     Given additional Cypress configuration
       """
@@ -200,7 +197,6 @@ Feature: JSON formatter
     Then it fails
     And the JSON report should contain an image attachment for what appears to be a screenshot
 
-  @skip
   Scenario: retried
     Given additional Cypress configuration
       """
@@ -230,7 +226,6 @@ Feature: JSON formatter
     And there should be a JSON output similar to "fixtures/retried.json"
     # And there should be a JSON output similar to "fixtures/passed-example.json"
 
-  @skip
   Scenario: failing Before hook
     Given additional Cypress configuration
       """
@@ -256,7 +251,6 @@ Feature: JSON formatter
     Then it fails
     And there should be a JSON output similar to "fixtures/failing-before.json"
 
-  @skip
   Scenario: failing After hook
     Given additional Cypress configuration
       """
