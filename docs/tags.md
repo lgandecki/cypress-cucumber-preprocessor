@@ -66,3 +66,6 @@ By default, all filtered tests are made *pending* using `it.skip` method. If you
 In the absence of a `tags` value and presence of a scenario with `@only`, only said scenario will run. You can in other words use this tag as you would use `.only()` in Mocha.
 
 Similarly, scenarios tagged with `@skip` will always be skipped, despite being tagged with something else matching a tag filter.
+
+## Running multiple tags 
+Use `--env tags='@tag1 and @tag2'` To run scenarios which have multiple tags - check [comment](https://github.com/badeball/cypress-cucumber-preprocessor/issues/532#issuecomment-805065245) for more information 
