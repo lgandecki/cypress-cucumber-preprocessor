@@ -10,7 +10,7 @@ $ npm install @badeball/cypress-cucumber-preprocessor
 
 ```ts
 import { defineConfig } from "cypress";
-import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
+import * as createBundler from "@bahmutov/cypress-esbuild-preprocessor";
 import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
 import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild";
 
