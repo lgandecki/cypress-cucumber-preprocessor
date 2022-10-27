@@ -19,9 +19,9 @@ import {
   IStepDefinitionBody,
 } from "./types";
 
-function defineStep<T extends unknown[]>(
+function defineStep<T extends unknown[], C extends Mocha.Context>(
   description: string | RegExp,
-  implementation: IStepDefinitionBody<T>
+  implementation: IStepDefinitionBody<T, C>
 ) {
   getRegistry().defineStep(description, implementation);
 }
@@ -34,7 +34,9 @@ function runStepDefininition(
   getRegistry().runStepDefininition(world, text, argument);
 }
 
-function defineParameterType<T>(options: IParameterTypeDefinition<T>) {
+function defineParameterType<T, C extends Mocha.Context>(
+  options: IParameterTypeDefinition<T, C>
+) {
   getRegistry().defineParameterType(options);
 }
 

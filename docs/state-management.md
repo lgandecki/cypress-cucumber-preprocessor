@@ -65,4 +65,18 @@ When("I increment the variable by {int}", function(number) {
 Then("the variable should contain {int}", function(number) {
   expect(this.variable).to.equal(number);
 });
-````
+```
+
+## TypeScript
+
+If you're using TypeScript, you can get optimum type safety and completion based on your custom world, by setting the type of `this` in your step functions:
+
+```ts
+interface CustomWorld extends Mocha.Context {
+  eat: (count: number) => void;
+}
+
+When("I eat {int} cucumbers", function (this: CustomWorld, count: number) {
+  this.eat(count);
+});
+```

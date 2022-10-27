@@ -45,12 +45,12 @@ export interface UnmatchedStep {
 
 export interface AmbiguousStep {
   step: DiagnosticStep;
-  definitions: IStepDefinition<unknown[]>[];
+  definitions: IStepDefinition<unknown[], Mocha.Context>[];
 }
 
 export interface DiagnosticResult {
   definitionsUsage: {
-    definition: IStepDefinition<unknown[]>;
+    definition: IStepDefinition<unknown[], Mocha.Context>;
     steps: DiagnosticStep[];
   }[];
   unmatchedSteps: UnmatchedStep[];
@@ -72,8 +72,8 @@ export function comparePosition(a: Position, b: Position) {
 }
 
 export function compareStepDefinition(
-  a: IStepDefinition<unknown[]>,
-  b: IStepDefinition<unknown[]>
+  a: IStepDefinition<unknown[], Mocha.Context>,
+  b: IStepDefinition<unknown[], Mocha.Context>
 ) {
   return (
     expressionToString(a.expression) === expressionToString(b.expression) &&
@@ -81,7 +81,9 @@ export function compareStepDefinition(
   );
 }
 
-export function position(definition: IStepDefinition<unknown[]>): Position {
+export function position(
+  definition: IStepDefinition<unknown[], Mocha.Context>
+): Position {
   return assertAndReturn(definition.position, "Expected to find a position");
 }
 

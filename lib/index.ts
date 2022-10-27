@@ -54,11 +54,11 @@ export function doesFeatureMatch(expression: string): boolean {
   throw createUnimplemented();
 }
 
-export function defineStep<T extends unknown[]>(
+export function defineStep<T extends unknown[], C extends Mocha.Context>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   description: string | RegExp,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  implementation: IStepDefinitionBody<T>
+  implementation: IStepDefinitionBody<T, C>
 ) {
   throw createUnimplemented();
 }
@@ -77,7 +77,9 @@ export function Step(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function defineParameterType<T>(options: IParameterTypeDefinition<T>) {
+export function defineParameterType<T, C extends Mocha.Context>(
+  options: IParameterTypeDefinition<T, C>
+) {
   throw createUnimplemented();
 }
 

@@ -109,6 +109,27 @@ After({ tags: "foo" }, function () {
   expectType<Mocha.Context>(this);
 });
 
+interface CustomWorld extends Mocha.Context {
+  pageDriver: {
+    navigateTo(url: string): void;
+  };
+}
+
+Given(/foo/, function (this: CustomWorld, url: string) {
+  expectType<CustomWorld>(this);
+  this.pageDriver.navigateTo(url);
+});
+
+When(/foo/, function (this: CustomWorld, url: string) {
+  expectType<CustomWorld>(this);
+  this.pageDriver.navigateTo(url);
+});
+
+Then(/foo/, function (this: CustomWorld, url: string) {
+  expectType<CustomWorld>(this);
+  this.pageDriver.navigateTo(url);
+});
+
 expectType<messages.GherkinDocument>(window.testState.gherkinDocument);
 expectType<messages.Pickle[]>(window.testState.pickles);
 expectType<messages.Pickle>(window.testState.pickle);

@@ -24,9 +24,9 @@ import {
 
 import { maybeRetrievePositionFromSourceMap, Position } from "./source-map";
 
-export interface IStepDefinition<T extends unknown[]> {
+export interface IStepDefinition<T extends unknown[], C extends Mocha.Context> {
   expression: Expression;
-  implementation: IStepDefinitionBody<T>;
+  implementation: IStepDefinitionBody<T, C>;
   position?: Position;
 }
 
@@ -70,7 +70,7 @@ export class Registry {
     position?: Position;
   }[] = [];
 
-  public stepDefinitions: IStepDefinition<unknown[]>[] = [];
+  public stepDefinitions: IStepDefinition<unknown[], Mocha.Context>[] = [];
 
   public beforeHooks: IHook[] = [];
 
@@ -123,11 +123,11 @@ export class Registry {
     });
   }
 
-  public defineParameterType<T>({
+  public defineParameterType<T, C extends Mocha.Context>({
     name,
     regexp,
     transformer,
-  }: IParameterTypeDefinition<T>) {
+  }: IParameterTypeDefinition<T, C>) {
     this.parameterTypeRegistry.defineParameterType(
       new ParameterType(name, regexp, null, transformer, true, false)
     );
