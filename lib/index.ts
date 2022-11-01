@@ -63,7 +63,7 @@ export function defineStep<T extends unknown[]>(
   throw createUnimplemented();
 }
 
-export { defineStep as Given, defineStep as When, defineStep as Then };
+export { defineStep as Given, defineStep as When, defineStep as Then, defineStep as And };
 
 export function Step(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

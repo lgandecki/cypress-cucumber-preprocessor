@@ -126,6 +126,7 @@ export {
   defineStep as Given,
   defineStep as When,
   defineStep as Then,
+  defineStep as And,
   defineStep,
   runStepDefininition as Step,
   defineParameterType,
