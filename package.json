@@ -37,12 +37,13 @@
     "watch": "tsc --watch",
     "fmt": "prettier --ignore-path .gitignore --write '**/*.ts'",
     "test": "npm run test:fmt && npm run test:lint && npm run test:types && npm run test:unit && npm run test:integration",
-    "test:fmt": "prettier --ignore-path .gitignore --check '**/*.ts'",
+    "test:fmt": "prettier --ignore-path .gitignore --check '**/*.ts' --no-error-on-unmatched-pattern",
     "test:lint": "eslint .",
     "test:types": "tsd",
     "test:unit": "mocha lib/**/*.test.ts",
     "test:run-all-specs": "mocha --timeout 0 test/run-all-specs.ts",
     "test:integration": "cucumber-js",
+    "prepare" : "npm run clean && npm run build",
     "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "dependencies": {
