@@ -215,8 +215,10 @@ function createScenario(
       const pickle = findPickleById(context, exampleId);
 
       const baseName = pickle.name || "<unamed scenario>";
-
-      const exampleName = `${baseName} (example #${i + 1})`;
+ 
+      const  altName = scenario.examples[0].tableBody[i].cells[0].value || ""
+       
+      const exampleName = (altName === "") ? `${baseName} #(example #${i + 1})` : `${baseName} #${altName}`; 
 
       createPickle(context, { ...scenario, name: exampleName }, pickle);
     }
