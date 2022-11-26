@@ -5,12 +5,12 @@
 
 This preprocessor aims to provide a developer experience and behavior similar to that of [Cucumber](https://cucumber.io/), to Cypress.
 
-> :information_source: The repositor has recently moved from `github.com/TheBrainFamily` to `github.com/badeball`. Read more about the transfer of ownership [here](https://github.com/badeball/cypress-cucumber-preprocessor/issues/689).
+> :information_source: The repository has recently moved from `github.com/TheBrainFamily` to `github.com/badeball`. Read more about the transfer of ownership [here](https://github.com/badeball/cypress-cucumber-preprocessor/issues/689).
 
 ## Installation
 
-```
-$ npm install @badeball/cypress-cucumber-preprocessor
+```sh
+npm install @badeball/cypress-cucumber-preprocessor
 ```
 
 ## Introduction
@@ -54,24 +54,24 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Building can be done once using:
 
-```
-$ npm run build
+```sh
+npm run build
 ```
 
 Or upon file changes with:
 
-```
-$ npm run watch
+```sh
+npm run watch
 ```
 
 There are multiple types of tests, all ran using npm scripts:
 
-```
-$ npm run test:fmt
-$ npm run test:types
-$ npm run test:unit
-$ npm run test:integration # make sure to build first
-$ npm run test # runs all of the above
+```sh
+npm run test:fmt
+npm run test:types
+npm run test:unit
+npm run test:integration # make sure to build first
+npm run test # runs all of the above
 ```
 
 ## Attribution
