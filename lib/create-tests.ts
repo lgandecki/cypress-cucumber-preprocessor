@@ -146,7 +146,7 @@ class InternalSpecPropertiesReference {
   }
 }
 
-function retrieveInternalSpecProperties(): InternalSpecProperties {
+export function retrieveInternalSpecProperties(): InternalSpecProperties {
   const envValue = Cypress.env(INTERNAL_SPEC_PROPERTIES);
 
   if (envValue instanceof InternalSpecPropertiesReference) {

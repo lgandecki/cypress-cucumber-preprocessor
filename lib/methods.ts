@@ -7,7 +7,10 @@ import {
   INTERNAL_SPEC_PROPERTIES,
   TASK_CREATE_STRING_ATTACHMENT,
 } from "./constants";
-import { InternalSpecProperties } from "./create-tests";
+import {
+  InternalSpecProperties,
+  retrieveInternalSpecProperties,
+} from "./create-tests";
 
 import DataTable from "./data_table";
 
@@ -115,7 +118,7 @@ export const NOT_FEATURE_ERROR =
 
 function doesFeatureMatch(expression: string) {
   const { pickle } = assertAndReturn(
-    Cypress.env(INTERNAL_SPEC_PROPERTIES),
+    retrieveInternalSpecProperties(),
     NOT_FEATURE_ERROR
   ) as InternalSpecProperties;
 
