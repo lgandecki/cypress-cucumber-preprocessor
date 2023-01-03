@@ -112,8 +112,48 @@ export interface InternalSuiteProperties {
   isEventHandlersAttached?: boolean;
 }
 
+class InternalSpecPropertiesReference {
+  private static referenceMap = new WeakMap<
+    InternalSpecPropertiesReference,
+    InternalSpecProperties
+  >();
+
+  private constructor() {
+    // Empty constructor just to set private visibility
+  }
+
+  public static new(
+    scenarioName: string,
+    properties: InternalSpecProperties
+  ): InternalSpecPropertiesReference {
+    const reference = new this();
+
+    this.referenceMap.set(reference, properties);
+
+    return reference;
+  }
+
+  public dereference(): InternalSpecProperties {
+    // Non-null assertion is safe because an instance of reference is only given out after it is included
+    // in the reference map.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return InternalSpecPropertiesReference.referenceMap.get(this)!;
+  }
+
+  public toJSON(): void {
+    // Noop override to hide the reference from serialization.
+    // Any property pointing to a reference will be ignored by JSON.stringify
+  }
+}
+
 function retrieveInternalSpecProperties(): InternalSpecProperties {
-  return Cypress.env(INTERNAL_SPEC_PROPERTIES);
+  const envValue = Cypress.env(INTERNAL_SPEC_PROPERTIES);
+
+  if (envValue instanceof InternalSpecPropertiesReference) {
+    return envValue.dereference();
+  }
+
+  return envValue;
 }
 
 function retrieveInternalSuiteProperties():
@@ -318,7 +358,11 @@ function createPickle(
     remainingSteps: [...steps],
   };
 
-  const internalEnv = { [INTERNAL_SPEC_PROPERTIES]: internalProperties };
+  const internalEnv = {
+    [INTERNAL_SPEC_PROPERTIES]: tags.includes("@reportInternalCucumberState")
+      ? internalProperties
+      : InternalSpecPropertiesReference.new(scenarioName, internalProperties),
+  };
 
   const suiteOptions = tags
     .filter(looksLikeOptions)
