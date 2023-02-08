@@ -10,8 +10,12 @@ This preprocessor aims to provide a developer experience and behavior similar to
 ## Installation
 
 ```
-$ npm install @badeball/cypress-cucumber-preprocessor
+npm install @badeball/cypress-cucumber-preprocessor
 ```
+
+Note that, when installing esbuild, 
+[versions below 0.15.17 should be used](https://github.com/bahmutov/cypress-esbuild-preprocessor/issues/229), <br>
+0.15.16 for example.
 
 ## Introduction
 
