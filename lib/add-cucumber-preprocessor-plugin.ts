@@ -158,6 +158,7 @@ export async function afterRunHandler(config: Cypress.PluginConfigOptions) {
       .toString()
       .trim()
       .split("\n")
+      .filter((l) => l != "")
       .map((line) => JSON.parse(line));
 
     let jsonOutput: string | undefined;
