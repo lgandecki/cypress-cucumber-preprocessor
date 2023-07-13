@@ -7,7 +7,10 @@ import {
   IStepDefinitionBody,
 } from "./public-member-types";
 
-export { resolve as resolvePreprocessorConfiguration, IPreprocessorConfiguration as CucumberPreprocessorConfiguration } from "./preprocessor-configuration";
+export {
+  resolve as resolvePreprocessorConfiguration,
+  IPreprocessorConfiguration as CucumberPreprocessorConfiguration,
+} from "./preprocessor-configuration";
 
 export {
   getStepDefinitionPatterns,
