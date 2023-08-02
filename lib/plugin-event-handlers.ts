@@ -322,7 +322,10 @@ export async function beforeSpecHandler(
         }
       }
       break;
-    // This happens in case of visting a new domain, ref. https://github.com/cypress-io/cypress/issues/26300.
+    // this happens in case of retrying a task in the before handler
+    case "before-spec":
+      break;
+    // This happens in case of visiting a new domain, ref. https://github.com/cypress-io/cypress/issues/26300.
     // In this case, we want to disgard messages obtained in the current test and allow execution to continue
     // as if nothing happened.
     case "step-started":
