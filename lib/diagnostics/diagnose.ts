@@ -30,6 +30,10 @@ import {
 } from "../step-definitions";
 import { notNull } from "../helpers/type-guards";
 
+interface ObjectLike {
+  [key: string]: any;
+}
+
 export interface DiagnosticStep {
   source: string;
   line: number;
@@ -163,7 +167,9 @@ export async function diagnose(configuration: {
 
       const cypressMockGlobals = {
         Cypress: {
-          env() {},
+          env() {
+            return {} as ObjectLike;
+          },
           on() {},
           config() {},
         },
