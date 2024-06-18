@@ -14,6 +14,8 @@ HTML reports are powered by [`@cucumber/html-formatter`](https://github.com/cucu
 
 The report is outputted to `cucumber-report.html` in the project directory, but can be configured through the `html.output` property.
 
+`html.override` is a boolean flag defaulted to true, if set to `false` files will be created with epoch timestamp
+
 ## Screenshots
 
 Screenshots are automatically added to HTML reports, including that of failed tests (unless you have disabled `screenshotOnRunFailure`).

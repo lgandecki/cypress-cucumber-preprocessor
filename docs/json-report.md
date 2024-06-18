@@ -14,6 +14,8 @@ JSON reports can be enabled using the `json.enabled` property. The preprocessor 
 
 The report is outputted to `cucumber-report.json` in the project directory, but can be configured through the `json.output` property.
 
+`json.override` is a boolean flag defaulted to true, if set to `false` files will be created with epoch timestamp
+
 ## Screenshots
 
 Screenshots are automatically added to JSON reports, including that of failed tests (unless you have disabled `screenshotOnRunFailure`).

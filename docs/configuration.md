@@ -78,8 +78,10 @@ Every configuration option has a similar key which can be use to override it, sh
 | `messages.output`      | `messagesOutput`       | `cucumber-messages.ndjson`               |
 | `json.enabled`         | `jsonEnabled`          | `true`, `false`                          |
 | `json.output`          | `jsonOutput`           | `cucumber-report.json`                   |
+| `json.override`        | `jsonOverride`         | `true`, `false`                          |
 | `html.enabled`         | `htmlEnabled`          | `true`, `false`                          |
 | `html.output`          | `htmlOutput`           | `cucumber-report.html`                   |
+| `html.override`        | `htmlOverride`         | `true`, `false`                          |
 | `pretty.enabled`       | `prettyEnabled`        | `true`, `false`                          |
 | `filterSpecsMixedMode` | `filterSpecsMixedMode` | `hide`, `show`, `empty-set`              |
 | `filterSpecs`          | `filterSpecs`          | `true`, `false`                          |

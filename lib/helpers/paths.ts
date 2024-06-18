@@ -1,6 +1,10 @@
 import path from "path";
 
-export function ensureIsAbsolute(root: string, maybeRelativePath: string) {
+export function ensureIsAbsolute(root: string, maybeRelativePath: string, override:boolean = true, fileSuffix: string = '') {
+
+  if (!override) {
+    maybeRelativePath += '-' + getEpochTime() + fileSuffix;
+  }
   if (path.isAbsolute(maybeRelativePath)) {
     return maybeRelativePath;
   } else {
@@ -15,3 +19,7 @@ export function ensureIsRelative(root: string, maybeRelativePath: string) {
     return maybeRelativePath;
   }
 }
+
+const getEpochTime = (): string => {
+  return new Date().getTime().toString();
+};

@@ -361,7 +361,9 @@ export async function afterRunHandler(config: Cypress.PluginConfigOptions) {
   if (preprocessor.json.enabled) {
     const jsonPath = ensureIsAbsolute(
       config.projectRoot,
-      preprocessor.json.output
+      preprocessor.json.output,
+      preprocessor.json.override,
+      '.json'
     );
 
     await fs.mkdir(path.dirname(jsonPath), { recursive: true });
@@ -390,7 +392,9 @@ export async function afterRunHandler(config: Cypress.PluginConfigOptions) {
   if (preprocessor.html.enabled) {
     const htmlPath = ensureIsAbsolute(
       config.projectRoot,
-      preprocessor.html.output
+      preprocessor.html.output,
+      preprocessor.json.override,
+      '.html'
     );
 
     await fs.mkdir(path.dirname(htmlPath), { recursive: true });

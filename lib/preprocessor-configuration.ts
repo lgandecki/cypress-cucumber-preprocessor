@@ -410,8 +410,10 @@ interface IEnvironmentOverrides {
   messagesOutput?: string;
   jsonEnabled?: boolean;
   jsonOutput?: string;
+  jsonOverride?: boolean;
   htmlEnabled?: boolean;
   htmlOutput?: string;
+  htmlOverride?: boolean;
   prettyEnabled?: boolean;
   filterSpecsMixedMode?: FilterSpecsMixedMode;
   filterSpecs?: boolean;
@@ -427,10 +429,12 @@ export interface IBaseUserConfiguration {
   json?: {
     enabled: boolean;
     output?: string;
+    override?: boolean;
   };
   html?: {
     enabled: boolean;
     output?: string;
+    override?: boolean;
   };
   pretty?: {
     enabled: boolean;
@@ -454,10 +458,12 @@ export interface IPreprocessorConfiguration {
   readonly json: {
     enabled: boolean;
     output: string;
+    override: boolean;
   };
   readonly html: {
     enabled: boolean;
     output: string;
+    override: boolean;
   };
   readonly pretty: {
     enabled: boolean;
@@ -511,6 +517,11 @@ export function combineIntoConfiguration(
       specific?.json?.output ??
       unspecific.json?.output ??
       "cucumber-report.json",
+    override:
+      overrides.jsonOverride ??
+      specific?.json?.override ??
+      unspecific.json?.override ??
+      false,  
   };
 
   const html: IPreprocessorConfiguration["html"] = {
@@ -524,6 +535,11 @@ export function combineIntoConfiguration(
       specific?.html?.output ??
       unspecific.html?.output ??
       "cucumber-report.html",
+    override:
+      overrides.htmlOverride ??
+      specific?.html?.override ??
+      unspecific.html?.override ??
+      false,  
   };
 
   const messages: IPreprocessorConfiguration["messages"] = {
