@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "e2e:ok": "cypress open --config-file ./cypress.config.mjs",
+    "e2e:bug": "cypress open --config-file ./config/cypress.config.mjs"
+  },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "latest",
     "@bahmutov/cypress-esbuild-preprocessor": "latest",
